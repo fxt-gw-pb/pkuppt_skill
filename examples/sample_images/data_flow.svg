@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="430" viewBox="0 0 1000 430" font-family="Microsoft YaHei, Arial, sans-serif">
+  <rect width="1000" height="430" fill="#ffffff"/>
+  <g fill="#eef2f7" stroke="#3a5a80" stroke-width="2">
+    <rect x="40"  y="160" width="200" height="110" rx="6"/>
+    <rect x="400" y="60"  width="200" height="110" rx="6"/>
+    <rect x="400" y="260" width="200" height="110" rx="6"/>
+    <rect x="760" y="160" width="200" height="110" rx="6"/>
+  </g>
+  <g fill="#262626" font-size="24" text-anchor="middle">
+    <text x="140" y="222">原始病历采集</text>
+    <text x="500" y="122">脱敏与清洗</text>
+    <text x="500" y="322">标注与校验</text>
+    <text x="860" y="222">训练数据集</text>
+  </g>
+  <g stroke="#3a5a80" stroke-width="3" fill="none" marker-end="url(#b)">
+    <path d="M240 215 H320 V115 H400"/>
+    <path d="M240 215 H320 V315 H400"/>
+    <path d="M600 115 H680 V215 H760"/>
+    <path d="M600 315 H680 V215 H760"/>
+  </g>
+  <defs><marker id="b" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#3a5a80"/></marker></defs>
+</svg>

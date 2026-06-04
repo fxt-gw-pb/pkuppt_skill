@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-06-04T07:54:18.826Z",
+  "template": "left-sidebar",
+  "passes": 1,
+  "actions": [
+    {
+      "slide": 2,
+      "action": "split_table",
+      "detail": "2 页"
+    }
+  ],
+  "before": {
+    "high": 1,
+    "medium": 0,
+    "slides": 6
+  },
+  "after": {
+    "high": 0,
+    "medium": 0,
+    "slides": 7
+  },
+  "pass": true
+}

@@ -1,0 +1,16 @@
+{
+  "template": "top-nav",
+  "generatedAt": "2026-06-04T07:54:11.164Z",
+  "overall_score": 100,
+  "style_match": true,
+  "template_drift": false,
+  "summary": {
+    "slides": 16,
+    "contentSlides": 8,
+    "issues": 0,
+    "high": 0,
+    "medium": 0
+  },
+  "issues": [],
+  "recommended_repairs": []
+}

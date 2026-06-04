@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="680" viewBox="0 0 680 680" font-family="Microsoft YaHei, Arial, sans-serif">
+  <rect width="680" height="680" fill="#ffffff"/>
+  <g text-anchor="middle" font-size="24" fill="#262626">
+    <rect x="140" y="40"  width="400" height="80" rx="8" fill="#f4eaea" stroke="#9E0000" stroke-width="2"/>
+    <text x="340" y="90">输入嵌入层 Embedding</text>
+    <rect x="140" y="180" width="400" height="80" rx="8" fill="#f4eaea" stroke="#9E0000" stroke-width="2"/>
+    <text x="340" y="230">编码器 Transformer ×N</text>
+    <rect x="140" y="320" width="400" height="80" rx="8" fill="#f4eaea" stroke="#9E0000" stroke-width="2"/>
+    <text x="340" y="370">注意力融合 Attention</text>
+    <rect x="140" y="460" width="400" height="80" rx="8" fill="#f4eaea" stroke="#9E0000" stroke-width="2"/>
+    <text x="340" y="510">输出解码 CRF</text>
+    <rect x="190" y="590" width="300" height="60" rx="8" fill="#9E0000"/>
+    <text x="340" y="628" fill="#fff">结构化标签</text>
+  </g>
+  <g stroke="#9E0000" stroke-width="3" fill="none" marker-end="url(#c)">
+    <path d="M340 120 V180"/><path d="M340 260 V320"/><path d="M340 400 V460"/><path d="M340 540 V590"/>
+  </g>
+  <defs><marker id="c" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#9E0000"/></marker></defs>
+</svg>

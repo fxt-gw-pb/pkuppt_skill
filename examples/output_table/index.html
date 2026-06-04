@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>表格密集型汇报测试 · 北京大学 HTML PPT</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{background:#111;font-family:"Microsoft YaHei","微软雅黑","PingFang SC","Hiragino Sans GB",Arial,sans-serif;overflow:hidden}
+*,*::before,*::after{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#111}
+#deck{width:1920px;height:1080px;flex:none;flex-shrink:0;position:relative;transform-origin:center center}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;background:#fff;overflow:hidden;display:none}
+.slide.active{display:block}
+#nav{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;z-index:50;background:rgba(0,0,0,.5);border-radius:999px;padding:8px 16px;color:#fff;backdrop-filter:blur(4px);opacity:.85;transition:opacity .2s}
+#nav:hover{opacity:1}
+#nav button{appearance:none;border:none;background:transparent;color:#fff;font-size:20px;cursor:pointer;padding:4px 10px;border-radius:6px;line-height:1}
+#nav button:hover{background:rgba(255,255,255,.18)}
+#nav .count{font-size:14px;min-width:60px;text-align:center;letter-spacing:1px;opacity:.9;font-family:Arial,sans-serif}
+@media print{
+  @page{size:1920px 1080px;margin:0}
+  html,body{background:#fff;overflow:visible}
+  #stage{position:static;display:block;overflow:visible;background:#fff}
+  #deck{transform:none!important;width:1920px;height:1080px}
+  #nav{display:none!important}
+  .slide{display:block!important;position:relative;page-break-after:always;break-after:page}
+  .slide:last-child{page-break-after:auto}
+}
+/* =============================================================================
+ * left-sidebar/theme.css — PKU red, left vertical nav. Design space 1920×1080.
+ * Chrome only (cover / contents / content frame / sidebar nav). The flowed
+ * body lives inside .c-body and is styled by the shared flow CSS.
+ * Faithful to the source template — do not add gradients/shadows/3D.
+ * ========================================================================== */
+:root{
+  --pku-red:#9E0000;
+  --pku-red-cover:#9B0000;
+  --ink:#000000;
+  --ink-soft:#404040;
+  --ink-date:#262626;
+  --line-gray:#BFBFBF;
+  --page-gray:#A6A6A6;
+  --white:#FFFFFF;
+  --font:"Microsoft YaHei","微软雅黑","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
+  --t-cover-title:120px;
+  --t-cover-sub:48px;
+  --t-presenter:40px;
+  --t-date:36px;
+  --t-toc-big:120px;
+  --t-toc-en:80px;
+  --t-content-title:56px;
+  --t-content-sub:40px;
+  --t-page:26px;
+  --sidebar-w:306px;
+}
+.slide{font-family:var(--font);}
+
+/* ---- cover / ending ---- */
+.cover-logo{position:absolute;left:50%;top:96px;transform:translateX(-50%);display:flex;align-items:center;gap:26px;}
+.cover-logo img{height:128px;width:auto;display:block;}
+.cover-block{position:absolute;left:0;top:341px;width:1920px;height:398px;background:var(--pku-red-cover);}
+/* title + subtitle are centred inside the band so long titles wrap without
+   ever overlapping the subtitle; title size is set per deck by the renderer */
+.cover-textwrap{position:absolute;left:0;right:0;top:341px;height:398px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;padding:0 90px;}
+.cover-title{text-align:center;font-size:var(--cover-title-size,120px);font-weight:700;color:var(--white);line-height:1.12;letter-spacing:4px;}
+.cover-sub{text-align:center;font-size:var(--t-cover-sub);font-weight:700;color:var(--white);letter-spacing:3px;}
+.cover-people{position:absolute;left:0;right:0;top:889px;display:flex;justify-content:center;gap:300px;}
+.cover-people .item{font-size:var(--t-presenter);color:var(--ink-soft);}
+.cover-people .item b{font-weight:700;}
+.cover-date{position:absolute;left:0;right:0;top:954px;text-align:center;font-size:var(--t-date);color:var(--ink-date);letter-spacing:1px;}
+
+/* ---- contents / TOC ---- */
+.toc-panel{position:absolute;left:13px;top:16px;width:545px;height:1048px;background:var(--pku-red);}
+.toc-seal{position:absolute;left:166px;top:189px;width:239px;height:239px;}
+.toc-seal img{width:100%;height:100%;object-fit:contain;}
+.toc-cn{position:absolute;left:13px;width:545px;top:528px;text-align:center;font-size:var(--t-toc-big);font-weight:700;color:var(--white);letter-spacing:14px;line-height:1;}
+.toc-en{position:absolute;left:13px;width:545px;top:748px;text-align:center;font-size:var(--t-toc-en);font-weight:700;color:var(--white);letter-spacing:8px;line-height:1;}
+.toc-pagoda{position:absolute;right:0;top:16px;width:417px;height:1048px;object-fit:cover;opacity:.14;filter:grayscale(.4);pointer-events:none;}
+.toc-list{position:absolute;left:689px;right:120px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;}
+.toc-row{display:flex;align-items:baseline;gap:48px;}
+.toc-row .part{font-weight:700;color:var(--pku-red);white-space:nowrap;}
+.toc-row .ttl{font-weight:700;color:var(--ink);}
+
+/* ---- content ---- */
+.side{position:absolute;left:0;top:0;width:var(--sidebar-w);height:1080px;background:var(--pku-red);}
+.side-seal{position:absolute;left:55px;top:41px;width:196px;height:195px;}
+.side-seal img{width:100%;height:100%;object-fit:contain;}
+.side-rule{position:absolute;left:61px;top:262px;width:190px;height:2px;background:rgba(255,255,255,.55);}
+.side-nav{position:absolute;left:0;right:0;top:300px;bottom:60px;display:flex;flex-direction:column;justify-content:center;gap:8px;}
+.nav-item{position:relative;display:flex;align-items:center;min-height:52px;padding:10px 18px 10px 30px;color:var(--white);font-weight:400;letter-spacing:2px;line-height:1.2;}
+.nav-item.active{background:var(--white);color:var(--pku-red);font-weight:700;margin-left:18px;}
+.c-title{position:absolute;left:338px;top:30px;font-size:var(--t-content-title);font-weight:700;color:var(--pku-red);letter-spacing:1px;}
+.c-rule-gray{position:absolute;left:378px;top:117px;width:1452px;height:2px;background:var(--line-gray);}
+.c-rule-red{position:absolute;left:348px;top:116px;width:81px;height:4px;background:var(--pku-red);}
+.c-sub{position:absolute;left:338px;top:150px;font-size:var(--t-content-sub);font-weight:700;color:var(--ink);letter-spacing:1px;}
+.c-body{position:absolute;left:338px;top:240px;right:90px;bottom:90px;}
+.page-no{position:absolute;right:46px;bottom:38px;font-size:var(--t-page);color:var(--page-gray);}
+
+
+.flow{position:absolute;inset:0;}
+.flow .tx{font-size:var(--body);line-height:1.7;color:#222;margin:0 0 .55em;}
+.flow .tx:last-child{margin-bottom:0;}
+.flow .bul,.flow .num{margin:0;padding:0;list-style:none;}
+.flow .num{counter-reset:li;}
+.flow .bul li,.flow .num li{position:relative;padding-left:1.2em;font-size:var(--body);line-height:1.7;margin:.22em 0;color:#222;}
+.flow .bul li::before{content:"";position:absolute;left:.05em;top:.62em;width:.46em;height:.46em;background:var(--pku-red);}
+.flow .num li{counter-increment:li;}
+.flow .num li::before{content:counter(li)".";position:absolute;left:0;color:var(--pku-red);font-weight:700;}
+.emphasis{font-weight:700;color:var(--emphasis-color,var(--pku-red));}
+.flow strong{font-weight:700;}
+.flow .fig{margin:0;display:flex;flex-direction:column;min-height:0;height:100%;}
+.flow .fig-box{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.flow .fig-box img{max-width:100%;max-height:100%;width:auto;height:auto;object-position:center center;display:block;}
+.flow figcaption{flex:0 0 auto;margin-top:.5em;text-align:center;font-size:var(--caption);color:#5a5a5a;line-height:1.4;}
+.flow .miss{flex:1;display:flex;align-items:center;justify-content:center;border:1px dashed #ccc;color:#999;font-size:var(--caption);}
+.flow.text-image-right,.flow.image-text-right{display:flex;gap:var(--gap);align-items:stretch;}
+.flow.text-image-right .col-text{flex:0 0 54%;}
+.flow.text-image-right .col-img{flex:1 1 auto;min-width:0;}
+.flow.image-text-right .col-img{flex:1 1 auto;min-width:0;}
+.flow.image-text-right .col-text{flex:0 0 46%;}
+.flow.text-image-bottom{display:flex;flex-direction:column;gap:var(--gap);}
+.flow.text-image-bottom .col-text{flex:0 0 auto;}
+.flow.text-image-bottom .col-img{flex:1 1 auto;min-height:0;}
+.flow.image-full{display:flex;flex-direction:column;}
+.flow.image-grid .grid,.flow.image-grid-2 .grid{display:grid;gap:var(--gap);height:100%;min-height:0;}
+.flow.image-grid-2 .grid{grid-template-columns:1fr 1fr;}
+.flow.image-grid .grid{grid-template-columns:1fr 1fr;grid-auto-rows:1fr;}
+.flow.image-grid .lead,.flow.image-grid-2 .lead{margin-bottom:var(--gap);}
+.flow .lead .tx,.flow .lead li{font-size:var(--body);}
+.flow.three-points .three{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);height:100%;}
+.flow.four-cards .cards{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:var(--gap);height:100%;}
+.card-pku{background:#fff;border:1px solid #e3c9c9;border-top:6px solid var(--pku-red);padding:calc(var(--gap)*.7);display:flex;flex-direction:column;gap:.35em;}
+.card-pku .n{font-size:1.5em;font-weight:700;color:var(--pku-red);font-family:Arial,sans-serif;line-height:1;}
+.card-pku .t{font-size:var(--body);line-height:1.55;color:#333;}
+.flow.comparison .cmp{display:flex;gap:var(--gap);height:100%;}
+.flow.comparison .cmp>div{flex:1;}
+.flow.timeline .steps{display:flex;flex-direction:column;gap:.55em;}
+.flow.timeline .step{display:flex;gap:.7em;align-items:flex-start;font-size:var(--body);line-height:1.6;}
+.flow.timeline .step .idx{flex:0 0 auto;width:1.7em;height:1.7em;border-radius:50%;background:var(--pku-red);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85em;}
+.tablewrap{width:100%;overflow:hidden;}
+table.ppt{border-collapse:collapse;width:100%;font-size:var(--body);}
+table.ppt th{background:var(--pku-red);color:#fff;font-weight:700;}
+table.ppt th,table.ppt td{border:1px solid #d3d3d3;padding:.4em .7em;text-align:left;line-height:1.5;}
+table.ppt tr:nth-child(even) td{background:#faf4f4;}
+</style>
+</head>
+<body>
+<div id="stage"><div id="deck" style="--emphasis-color:#9E0000">
+<section class="slide" data-screen-label="01" data-type="cover">
+    <div class="cover-logo"><img src="assets/seal-red.png" alt="北京大学校徽"></div>
+    <div class="cover-block"></div>
+    <div class="cover-textwrap" style="--cover-title-size:120px">
+      <div class="cover-title">表格密集型汇报测试</div>
+      <div class="cover-sub">大表格自动分页校验</div>
+    </div>
+    <div class="cover-people">
+      <div class="item"><b>答辩人</b>：测试</div>
+      <div class="item"><b>指导老师</b>：测试</div>
+    </div>
+    <div class="cover-date">答辩时间：2026年6月</div></section>
+<section class="slide" data-screen-label="02" data-type="contents">
+    <div class="toc-panel"></div>
+    <div class="toc-seal"><img src="assets/seal-white.png" alt="校徽"></div>
+    <div class="toc-cn">目录</div>
+    <div class="toc-en">CONTENTS</div>
+    <img class="toc-pagoda" src="assets/pagoda.png" alt="博雅塔">
+    <div class="toc-list" style="gap:96px">
+      <div class="toc-row" style="font-size:72px">
+        <span class="part">Part 1</span>
+        <span class="ttl">实验数据</span>
+      </div>
+      <div class="toc-row" style="font-size:72px">
+        <span class="part">Part 2</span>
+        <span class="ttl">结论</span>
+      </div></div></section>
+<section class="slide" data-screen-label="03" data-type="content">
+    <div class="side">
+      <div class="side-seal"><img src="assets/seal-white.png" alt="校徽"></div>
+      <div class="side-rule"></div>
+      <div class="side-nav" style="gap:10px"><div class="nav-item active" style="font-size:30px">实验数据</div><div class="nav-item" style="font-size:30px">结论</div></div>
+    </div>
+    <div class="c-title">1. 实验数据</div>
+    <div class="c-rule-gray"></div>
+    <div class="c-rule-red"></div>
+    <div class="c-sub">1.1 完整结果表</div>
+    <div class="c-body"><div class="flow text-only" style="--body:34px;--caption:24px;--gap:36px"><p class="tx">下表包含较多行，应触发表格过密校验并由自动修复拆分为多页。</p></div></div>
+    <div class="page-no">1</div></section>
+<section class="slide" data-screen-label="04" data-type="content">
+    <div class="side">
+      <div class="side-seal"><img src="assets/seal-white.png" alt="校徽"></div>
+      <div class="side-rule"></div>
+      <div class="side-nav" style="gap:10px"><div class="nav-item active" style="font-size:30px">实验数据</div><div class="nav-item" style="font-size:30px">结论</div></div>
+    </div>
+    <div class="c-title">1. 实验数据</div>
+    <div class="c-rule-gray"></div>
+    <div class="c-rule-red"></div>
+    <div class="c-sub">1.1 完整结果表（续）</div>
+    <div class="c-body"><div class="flow table" style="--body:24px;--caption:24px;--gap:36px"><div class="tablewrap"><table class="ppt"><thead><tr><th>方法</th><th>数据集</th><th>准确率</th><th>召回率</th><th>F1</th></tr></thead><tbody><tr><td>规则法</td><td>A</td><td>71.2</td><td>65.4</td><td>68.2</td></tr><tr><td>规则法</td><td>B</td><td>70.1</td><td>64.0</td><td>66.9</td></tr><tr><td>CRF</td><td>A</td><td>78.5</td><td>74.1</td><td>76.2</td></tr><tr><td>CRF</td><td>B</td><td>77.0</td><td>73.2</td><td>75.0</td></tr><tr><td>BiLSTM</td><td>A</td><td>82.1</td><td>80.3</td><td>81.2</td></tr><tr><td>BiLSTM</td><td>B</td><td>81.0</td><td>79.1</td><td>80.0</td></tr><tr><td>BiLSTM-CRF</td><td>A</td><td>85.3</td><td>82.7</td><td>84.0</td></tr><tr><td>BiLSTM-CRF</td><td>B</td><td>84.1</td><td>81.9</td><td>83.0</td></tr><tr><td>BERT</td><td>A</td><td>89.0</td><td>87.5</td><td>88.2</td></tr><tr><td>BERT</td><td>B</td><td>88.1</td><td>86.7</td><td>87.4</td></tr><tr><td>本文方法</td><td>A</td><td>91.6</td><td>90.2</td><td>90.9</td></tr><tr><td>本文方法</td><td>B</td><td>90.8</td><td>89.5</td><td>90.1</td></tr><tr><td>本文方法</td><td>C</td><td>90.2</td><td>88.9</td><td>89.5</td></tr></tbody></table></div></div></div>
+    <div class="page-no">2</div></section>
+<section class="slide" data-screen-label="05" data-type="content">
+    <div class="side">
+      <div class="side-seal"><img src="assets/seal-white.png" alt="校徽"></div>
+      <div class="side-rule"></div>
+      <div class="side-nav" style="gap:10px"><div class="nav-item active" style="font-size:30px">实验数据</div><div class="nav-item" style="font-size:30px">结论</div></div>
+    </div>
+    <div class="c-title">1. 实验数据</div>
+    <div class="c-rule-gray"></div>
+    <div class="c-rule-red"></div>
+    <div class="c-sub">1.1 完整结果表（续2）</div>
+    <div class="c-body"><div class="flow table" style="--body:34px;--caption:24px;--gap:36px"><div class="tablewrap"><table class="ppt"><thead><tr><th>方法</th><th>数据集</th><th>准确率</th><th>召回率</th><th>F1</th></tr></thead><tbody><tr><td>本文方法</td><td>D</td><td>89.7</td><td>88.1</td><td>88.9</td></tr><tr><td>本文方法(消融)</td><td>A</td><td>87.3</td><td>85.9</td><td>86.6</td></tr><tr><td>本文方法(消融)</td><td>B</td><td>86.5</td><td>85.0</td><td>85.7</td></tr></tbody></table></div></div></div>
+    <div class="page-no">3</div></section>
+<section class="slide" data-screen-label="06" data-type="content">
+    <div class="side">
+      <div class="side-seal"><img src="assets/seal-white.png" alt="校徽"></div>
+      <div class="side-rule"></div>
+      <div class="side-nav" style="gap:10px"><div class="nav-item" style="font-size:30px">实验数据</div><div class="nav-item active" style="font-size:30px">结论</div></div>
+    </div>
+    <div class="c-title">2. 结论</div>
+    <div class="c-rule-gray"></div>
+    <div class="c-rule-red"></div>
+    <div class="c-sub">2.1 结论</div>
+    <div class="c-body"><div class="flow text-only" style="--body:34px;--caption:24px;--gap:36px"><p class="tx">本文方法在所有数据集上均取得<strong class="emphasis">最佳 F1 表现</strong>。</p></div></div>
+    <div class="page-no">4</div></section>
+<section class="slide" data-screen-label="07" data-type="ending">
+    <div class="cover-logo"><img src="assets/seal-red.png" alt="北京大学校徽"></div>
+    <div class="cover-block"></div>
+    <div class="cover-textwrap" style="--cover-title-size:120px">
+      <div class="cover-title">谢谢聆听</div>
+      <div class="cover-sub">THANKS</div>
+    </div></section>
+</div></div>
+<div id="nav">
+  <button id="prev" title="上一页 (←)">‹</button>
+  <span class="count"><span id="cur">1</span> / <span id="total">1</span></span>
+  <button id="next" title="下一页 (→)">›</button>
+  <button id="print" title="打印 / 导出 PDF">⎙</button>
+</div>
+<script>(function(){
+  var W=1920,H=1080,KEY="pku_left_slide";
+  var deck=document.getElementById('deck');
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var TOTAL=slides.length;
+  var totalEl=document.getElementById('total'); if(totalEl) totalEl.textContent=TOTAL;
+  var cur=Math.min(TOTAL-1,Math.max(0,parseInt((function(){try{return localStorage.getItem(KEY)}catch(e){return 0}})()||'0',10)||0));
+  function show(i){cur=(i+TOTAL)%TOTAL;slides.forEach(function(el,k){el.classList.toggle('active',k===cur)});var c=document.getElementById('cur');if(c)c.textContent=cur+1;try{localStorage.setItem(KEY,cur)}catch(e){}}
+  function fit(){var w=window.innerWidth,h=window.innerHeight;if(!w||!h)return;var s=Math.min(w/W,h/H);if(s>0)deck.style.transform='scale('+s+')';}
+  window.addEventListener('resize',fit);window.addEventListener('load',fit);
+  if(window.ResizeObserver){new ResizeObserver(fit).observe(document.documentElement);}
+  var p=document.getElementById('prev'),n=document.getElementById('next'),pr=document.getElementById('print');
+  if(p)p.onclick=function(){show(cur-1)};if(n)n.onclick=function(){show(cur+1)};if(pr)pr.onclick=function(){window.print()};
+  window.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){show(cur+1);e.preventDefault();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){show(cur-1);e.preventDefault();}
+    else if(e.key==='Home')show(0);else if(e.key==='End')show(TOTAL-1);
+  });
+  requestAnimationFrame(fit);fit();show(cur);
+})();</script>
+</body>
+</html>

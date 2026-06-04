@@ -1,0 +1,250 @@
+[
+  {
+    "id": "cover-1",
+    "type": "cover",
+    "_index": 0
+  },
+  {
+    "id": "contents-2",
+    "type": "contents",
+    "_index": 1
+  },
+  {
+    "id": "content-3",
+    "type": "content",
+    "sectionId": "sec1",
+    "heading": "1.1 研究背景与动机",
+    "layout": "text-image-bottom",
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "电子病历在临床实践中积累了海量的自由文本数据，但这些文本高度非结构化，难以直接用于统计分析与临床决策支持。"
+      },
+      {
+        "kind": "paragraph",
+        "text": "这里有一个需要强调的重点：**电子病历自由文本的结构化是医学数据科学的重要基础**，它直接决定了下游分析任务的质量。"
+      },
+      {
+        "kind": "image",
+        "alt": "电子病历结构化流程示意图",
+        "src": "sample_images/emr_structure.svg",
+        "caption": "图1 电子病历自由文本结构化的总体流程",
+        "missing": false,
+        "w": 1200,
+        "h": 460,
+        "ratio": 2.609,
+        "shape": "wide",
+        "fit": "contain",
+        "keepBig": true,
+        "preferLayout": "text-image-bottom",
+        "outSrc": "assets/emr_structure.svg"
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 34,
+    "_fits": true,
+    "_index": 2,
+    "_page": 1
+  },
+  {
+    "id": "content-4",
+    "type": "content",
+    "sectionId": "sec1",
+    "heading": "1.2 研究意义",
+    "layout": "text-only",
+    "blocks": [
+      {
+        "kind": "list",
+        "ordered": false,
+        "items": [
+          "提升临床科研数据的可用性与可复现性",
+          "为智能辅助诊断提供高质量结构化输入",
+          "**降低人工标注与数据整理的时间成本**"
+        ]
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 34,
+    "_fits": true,
+    "_index": 3,
+    "_page": 2
+  },
+  {
+    "id": "content-5",
+    "type": "content",
+    "sectionId": "sec2",
+    "heading": "2.1 总体技术路线",
+    "layout": "text-image-bottom",
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "本研究采用\"数据采集—清洗脱敏—标注—建模\"的总体技术路线，确保数据质量与方法的可扩展性。"
+      },
+      {
+        "kind": "image",
+        "alt": "数据处理流程",
+        "src": "sample_images/data_flow.svg",
+        "caption": "图2 数据来源与处理流程",
+        "missing": false,
+        "w": 1000,
+        "h": 430,
+        "ratio": 2.326,
+        "shape": "wide",
+        "fit": "contain",
+        "keepBig": true,
+        "preferLayout": "text-image-bottom",
+        "outSrc": "assets/data_flow.svg"
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 34,
+    "_fits": true,
+    "_index": 4,
+    "_page": 3
+  },
+  {
+    "id": "content-6",
+    "type": "content",
+    "sectionId": "sec2",
+    "heading": "2.2 模型结构",
+    "layout": "text-image-bottom",
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "我们提出一个端到端的序列标注模型，融合预训练语言表示与条件随机场解码。"
+      },
+      {
+        "kind": "image",
+        "alt": "模型结构图",
+        "src": "sample_images/model_arch.svg",
+        "caption": "图3 端到端结构化模型架构",
+        "missing": false,
+        "w": 680,
+        "h": 680,
+        "ratio": 1,
+        "shape": "square",
+        "fit": "contain",
+        "keepBig": true,
+        "preferLayout": "text-image-bottom",
+        "outSrc": "assets/model_arch.svg"
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 34,
+    "_fits": true,
+    "_index": 5,
+    "_page": 4
+  },
+  {
+    "id": "content-7",
+    "type": "content",
+    "sectionId": "sec3",
+    "heading": "3.1 主要实验结果",
+    "layout": "text-image-bottom",
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "在真实临床数据集上，本文方法在实体识别 F1 指标上显著优于基线方法。"
+      },
+      {
+        "kind": "image",
+        "alt": "不同方法的 F1 对比",
+        "src": "sample_images/result_chart.svg",
+        "caption": "图4 不同方法在测试集上的 F1 对比",
+        "missing": false,
+        "w": 900,
+        "h": 600,
+        "ratio": 1.5,
+        "shape": "landscape",
+        "fit": "contain",
+        "keepBig": true,
+        "preferLayout": "text-image-bottom",
+        "outSrc": "assets/result_chart.svg"
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 34,
+    "_fits": true,
+    "_index": 6,
+    "_page": 5
+  },
+  {
+    "id": "content-8",
+    "type": "content",
+    "sectionId": "sec3",
+    "heading": "3.2 消融实验",
+    "layout": "table",
+    "blocks": [
+      {
+        "kind": "table",
+        "headers": [
+          "模型配置",
+          "准确率",
+          "召回率",
+          "F1"
+        ],
+        "rows": [
+          [
+            "规则法",
+            "71.2",
+            "65.4",
+            "68.2"
+          ],
+          [
+            "CRF",
+            "78.5",
+            "74.1",
+            "76.2"
+          ],
+          [
+            "BiLSTM-CRF",
+            "85.3",
+            "82.7",
+            "84.0"
+          ],
+          [
+            "本文方法",
+            "91.6",
+            "90.2",
+            "90.9"
+          ]
+        ]
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 34,
+    "_fits": true,
+    "_index": 7,
+    "_page": 6
+  },
+  {
+    "id": "content-9",
+    "type": "content",
+    "sectionId": "sec4",
+    "heading": "4.1 结论与展望",
+    "layout": "text-only",
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "本文提出的结构化方法在中文医学文本上取得了良好效果，**未来将进一步探索多中心数据上的迁移与泛化能力**。"
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 34,
+    "_fits": true,
+    "_index": 8,
+    "_page": 7
+  },
+  {
+    "id": "ending-10",
+    "type": "ending",
+    "_index": 9
+  }
+]

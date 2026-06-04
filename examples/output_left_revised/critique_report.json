@@ -1,0 +1,16 @@
+{
+  "template": "left-sidebar",
+  "generatedAt": "2026-06-04T07:54:16.265Z",
+  "overall_score": 100,
+  "style_match": true,
+  "template_drift": false,
+  "summary": {
+    "slides": 11,
+    "contentSlides": 8,
+    "issues": 0,
+    "high": 0,
+    "medium": 0
+  },
+  "issues": [],
+  "recommended_repairs": []
+}

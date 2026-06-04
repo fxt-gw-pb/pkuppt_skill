@@ -1,0 +1,32 @@
+{
+  "id": "left-sidebar",
+  "zh_name": "PKU 红色左侧栏模板",
+  "en_name": "PKU Red Left-Sidebar",
+  "source_pptx": "汇报模板-PKU-红-左侧栏四部分.pptx",
+  "designSpace": { "width": 1920, "height": 1080, "ratio": "16:9" },
+  "recommendedFor": "章节较少（约 3–4 个）的学术汇报 / 论文答辩；自动选择阈值：sections <= 4",
+  "slideTypes": ["cover", "contents", "content", "ending"],
+  "navigation": {
+    "kind": "left vertical sidebar",
+    "dataDriven": true,
+    "source": "deck.sections (任意增删，自动适配)",
+    "activeHighlight": "当前章节白底红字高亮",
+    "autoShrink": "字号/间距随章节数自动缩小 (nav.fs / nav.gap)"
+  },
+  "toc": { "style": "Part 1 / Part 2 …", "autoShrink": "toc.fs / toc.gap by section count" },
+  "safeArea": { "x": 338, "y": 240, "w": 1492, "h": 750, "note": "右侧正文安全区，位于侧栏右、标题下、页码上" },
+  "reservedZones": {
+    "sidebar": { "x": 0, "y": 0, "w": 306, "h": 1080 },
+    "title": { "x": 338, "y": 30, "size": 56 },
+    "subtitle": { "x": 338, "y": 150, "size": 40 },
+    "pageNumber": "右下角"
+  },
+  "typography": {
+    "titleMin": 39, "bodyLadder": [34, 30, 28, 26, 24], "bodyMin": 24,
+    "caption": 24, "captionMin": 18, "lineHeight": 1.7
+  },
+  "colors": { "pkuRed": "#9E0000", "coverBlock": "#9B0000", "ink": "#000000", "lineGray": "#BFBFBF", "pageGray": "#A6A6A6" },
+  "assets": ["assets/seal-white.png", "assets/seal-red.png", "assets/pagoda.png"],
+  "renderer": "renderer.js (render(deck) -> 自包含 HTML)",
+  "reference": "index.html / index-print.html 为可手改的独立 deckConfig 演示稿"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "ppt_pku",
+  "version": "1.0.0",
+  "description": "PKU red academic HTML PPT skill — generate, validate, critique, auto-repair, revise and export PKU-red presentation decks from Markdown outlines. Zero npm dependencies (pure Node.js).",
+  "type": "commonjs",
+  "engines": { "node": ">=18" },
+  "bin": {
+    "ppt-pku-build": "scripts/build_deck.js"
+  },
+  "scripts": {
+    "build:left": "node scripts/build_deck.js examples/example_outline_left_sidebar.md --out examples/output_left",
+    "build:top": "node scripts/build_deck.js examples/example_outline_top_nav.md --out examples/output_top",
+    "validate": "node scripts/validate_layout.js examples/output_top",
+    "critique": "node scripts/critique_deck.js examples/output_top",
+    "test": "node tests/run_tests.js"
+  },
+  "keywords": ["pku", "ppt", "html-ppt", "academic", "presentation", "claude-skill", "北京大学", "答辩"],
+  "license": "MIT",
+  "dependencies": {}
+}

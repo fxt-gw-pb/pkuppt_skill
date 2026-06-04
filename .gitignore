@@ -1,0 +1,10 @@
+# test scratch output
+tests/.out/
+
+# OS / editor
+.DS_Store
+*.log
+node_modules/
+
+# Chrome scratch
+.image-slots.state.json

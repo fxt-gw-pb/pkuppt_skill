@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="460" viewBox="0 0 1200 460" font-family="Microsoft YaHei, Arial, sans-serif">
+  <rect width="1200" height="460" fill="#ffffff"/>
+  <g fill="#f4eaea" stroke="#9E0000" stroke-width="2">
+    <rect x="30"  y="170" width="220" height="120" rx="6"/>
+    <rect x="360" y="170" width="220" height="120" rx="6"/>
+    <rect x="690" y="170" width="220" height="120" rx="6"/>
+    <rect x="980" y="60"  width="190" height="120" rx="6"/>
+    <rect x="980" y="280" width="190" height="120" rx="6"/>
+  </g>
+  <g fill="#262626" font-size="26" text-anchor="middle">
+    <text x="140" y="238">电子病历自由文本</text>
+    <text x="470" y="238">分词与实体识别</text>
+    <text x="800" y="238">关系抽取</text>
+    <text x="1075" y="128">结构化数据库</text>
+    <text x="1075" y="348">知识图谱</text>
+  </g>
+  <g stroke="#9E0000" stroke-width="3" fill="none" marker-end="url(#a)">
+    <path d="M250 230 H360"/>
+    <path d="M580 230 H690"/>
+    <path d="M910 230 H950 V120 H980"/>
+    <path d="M910 230 H950 V340 H980"/>
+  </g>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#9E0000"/></marker></defs>
+</svg>

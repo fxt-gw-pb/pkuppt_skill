@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "description": "ppt_pku evaluation cases. Each case is built (and optionally repaired/revised) by run_tests.js, then asserted against `expect`. Run: node tests/run_tests.js",
+  "cases": [
+    {
+      "id": "normal-left",
+      "title": "普通文字汇报（4 章节，少图）→ 左侧栏",
+      "kind": "build",
+      "outline": "../examples/example_outline_left_sidebar.md",
+      "expect": {
+        "template": "left-sidebar",
+        "navItems": 4,
+        "layoutPassNoHigh": true,
+        "boldRendered": true,
+        "minBodyAtLeast": 24,
+        "noLiteralBoldMarkers": true
+      }
+    },
+    {
+      "id": "defense-top",
+      "title": "五章节标准论文答辩 → 上方导航",
+      "kind": "build",
+      "outline": "../examples/example_outline_top_nav.md",
+      "expect": {
+        "template": "top-nav",
+        "navItems": 5,
+        "hasPartSlides": true,
+        "layoutPassNoHigh": true,
+        "boldRendered": true,
+        "minBodyAtLeast": 16
+      }
+    },
+    {
+      "id": "image-heavy",
+      "title": "图片密集型汇报（每章多图）",
+      "kind": "build+repair",
+      "outline": "image_heavy_test.md",
+      "expect": {
+        "imagesPresent": true,
+        "noHighAfterRepair": true,
+        "maxImagesPerSlide": 4,
+        "noDistortion": true
+      }
+    },
+    {
+      "id": "long-text",
+      "title": "长文本汇报（单页超长正文自动拆页）",
+      "kind": "build",
+      "outline": "long_text_test.md",
+      "expect": {
+        "autoSplit": true,
+        "layoutPassNoHigh": true,
+        "minBodyAtLeast": 24,
+        "noContentLoss": true
+      }
+    },
+    {
+      "id": "table-heavy",
+      "title": "表格密集型汇报（大表格自动分页）",
+      "kind": "build+repair",
+      "outline": "table_test.md",
+      "expect": {
+        "detectsTableDenseBeforeRepair": true,
+        "tableSplitAfterRepair": true,
+        "layoutPassNoHighAfterRepair": true,
+        "noTableRowLoss": true
+      }
+    },
+    {
+      "id": "revision",
+      "title": "返修型任务（放大/拆页/改名/换图/删页/全局加粗，保持模板）",
+      "kind": "revision",
+      "outline": "../examples/example_outline_left_sidebar.md",
+      "request": "revision_test.md",
+      "expect": {
+        "sectionRenamed": ["研究方法", "研究设计与方法"],
+        "templateUnchanged": "left-sidebar",
+        "deletedOnePage": true,
+        "splitAddedPage": true,
+        "imageReplacedKeepsCaption": true,
+        "layoutPassNoHigh": true,
+        "historyRecorded": true,
+        "noOrphanContent": true
+      }
+    },
+    {
+      "id": "critique",
+      "title": "Critique 能发现风格漂移与未渲染加粗",
+      "kind": "critique-inject",
+      "outline": "critique_test.md",
+      "expect": {
+        "cleanScoreHigh": true,
+        "detectsDriftAfterInjection": true,
+        "detectsUnrenderedBold": true
+      }
+    },
+    {
+      "id": "workflow",
+      "title": "Open Design 风格工作流（brief→template→artifact→critique→repair→handoff）",
+      "kind": "workflow",
+      "outline": "../examples/example_outline_top_nav.md",
+      "expect": {
+        "artifactsExist": ["index.html", "deckConfig.json", "slides.json", "layout_report.json", "critique_report.json", "README_export.md"],
+        "noOpenDesignExtras": true,
+        "onlyTwoTemplates": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+# 示例配置 —— 说明一次生成可用的参数（与大纲 front matter 等价，二选一即可）
+# 用法： node scripts/build_deck.js examples/example_outline_top_nav.md --out examples/output_top --template top-nav
+
+template: top-nav            # left-sidebar | top-nav；留空则按章节数自动选择（<=4 左侧栏，>=5 上方栏）
+outline: example_outline_top_nav.md
+out: examples/output_top
+
+# 封面信息（也可写在大纲 front matter 中，优先级：大纲 front matter > 此处）
+title: 多模态深度学习在医学影像分析中的应用
+subtitle: 博士学位论文答辩
+presenter: 王五
+advisor: 赵六 教授
+date: 2026年6月
+
+# 生成后自动执行的步骤（由各脚本分别完成）
+pipeline:
+  validate: true             # node scripts/validate_layout.js <out>
+  critique: true             # node scripts/critique_deck.js <out>
+  auto_repair: true          # node scripts/auto_repair.js <out>
+  export_pdf: true           # node scripts/export_pdf.js <out>
+  package: true              # node scripts/package_output.js <out>
+
+# 重点强调样式：pku-red（默认）| dark | plain
+emphasis: pku-red

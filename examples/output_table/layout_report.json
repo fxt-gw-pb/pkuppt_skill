@@ -1,0 +1,66 @@
+{
+  "template": "left-sidebar",
+  "generatedAt": "2026-06-04T07:54:18.825Z",
+  "slides": 7,
+  "contentSlides": 4,
+  "pass": true,
+  "passNoHigh": true,
+  "counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "checks": {
+    "pageNumbersContinuous": true,
+    "navFits": true,
+    "geometryOk": true
+  },
+  "thresholds": {
+    "bodyMin": 24,
+    "captionMin": 18,
+    "titleMin": 39
+  },
+  "issues": [],
+  "perSlide": [
+    {
+      "slideId": "content-3",
+      "page": 1,
+      "layout": "text-only",
+      "bodySize": 34,
+      "textHeight": 58,
+      "textAvail": 750,
+      "fits": true,
+      "imgMinSide": null
+    },
+    {
+      "slideId": "content-rmpz78xmv-1",
+      "page": 2,
+      "layout": "table",
+      "bodySize": 24,
+      "textHeight": 0,
+      "textAvail": 750,
+      "fits": true,
+      "imgMinSide": null
+    },
+    {
+      "slideId": "content-rmpz78xmv-2",
+      "page": 3,
+      "layout": "table",
+      "bodySize": 34,
+      "textHeight": 0,
+      "textAvail": 750,
+      "fits": true,
+      "imgMinSide": null
+    },
+    {
+      "slideId": "content-5",
+      "page": 4,
+      "layout": "text-only",
+      "bodySize": 34,
+      "textHeight": 58,
+      "textAvail": 750,
+      "fits": true,
+      "imgMinSide": null
+    }
+  ]
+}

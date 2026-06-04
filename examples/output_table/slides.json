@@ -1,0 +1,215 @@
+[
+  {
+    "id": "cover-1",
+    "type": "cover",
+    "_index": 0
+  },
+  {
+    "id": "contents-2",
+    "type": "contents",
+    "_index": 1
+  },
+  {
+    "id": "content-3",
+    "type": "content",
+    "sectionId": "sec1",
+    "heading": "1.1 完整结果表",
+    "layout": "text-only",
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "下表包含较多行，应触发表格过密校验并由自动修复拆分为多页。"
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 2,
+    "bodySize": 34,
+    "_fits": true,
+    "_index": 2,
+    "_page": 1
+  },
+  {
+    "id": "content-rmpz78xmv-1",
+    "type": "content",
+    "sectionId": "sec1",
+    "heading": "1.1 完整结果表（续）",
+    "layout": "table",
+    "blocks": [
+      {
+        "kind": "table",
+        "headers": [
+          "方法",
+          "数据集",
+          "准确率",
+          "召回率",
+          "F1"
+        ],
+        "rows": [
+          [
+            "规则法",
+            "A",
+            "71.2",
+            "65.4",
+            "68.2"
+          ],
+          [
+            "规则法",
+            "B",
+            "70.1",
+            "64.0",
+            "66.9"
+          ],
+          [
+            "CRF",
+            "A",
+            "78.5",
+            "74.1",
+            "76.2"
+          ],
+          [
+            "CRF",
+            "B",
+            "77.0",
+            "73.2",
+            "75.0"
+          ],
+          [
+            "BiLSTM",
+            "A",
+            "82.1",
+            "80.3",
+            "81.2"
+          ],
+          [
+            "BiLSTM",
+            "B",
+            "81.0",
+            "79.1",
+            "80.0"
+          ],
+          [
+            "BiLSTM-CRF",
+            "A",
+            "85.3",
+            "82.7",
+            "84.0"
+          ],
+          [
+            "BiLSTM-CRF",
+            "B",
+            "84.1",
+            "81.9",
+            "83.0"
+          ],
+          [
+            "BERT",
+            "A",
+            "89.0",
+            "87.5",
+            "88.2"
+          ],
+          [
+            "BERT",
+            "B",
+            "88.1",
+            "86.7",
+            "87.4"
+          ],
+          [
+            "本文方法",
+            "A",
+            "91.6",
+            "90.2",
+            "90.9"
+          ],
+          [
+            "本文方法",
+            "B",
+            "90.8",
+            "89.5",
+            "90.1"
+          ],
+          [
+            "本文方法",
+            "C",
+            "90.2",
+            "88.9",
+            "89.5"
+          ]
+        ]
+      }
+    ],
+    "bodySize": 24,
+    "_index": 3,
+    "_page": 2
+  },
+  {
+    "id": "content-rmpz78xmv-2",
+    "type": "content",
+    "sectionId": "sec1",
+    "heading": "1.1 完整结果表（续2）",
+    "layout": "table",
+    "blocks": [
+      {
+        "kind": "table",
+        "headers": [
+          "方法",
+          "数据集",
+          "准确率",
+          "召回率",
+          "F1"
+        ],
+        "rows": [
+          [
+            "本文方法",
+            "D",
+            "89.7",
+            "88.1",
+            "88.9"
+          ],
+          [
+            "本文方法(消融)",
+            "A",
+            "87.3",
+            "85.9",
+            "86.6"
+          ],
+          [
+            "本文方法(消融)",
+            "B",
+            "86.5",
+            "85.0",
+            "85.7"
+          ]
+        ]
+      }
+    ],
+    "bodySize": 34,
+    "_index": 4,
+    "_page": 3
+  },
+  {
+    "id": "content-5",
+    "type": "content",
+    "sectionId": "sec2",
+    "heading": "2.1 结论",
+    "layout": "text-only",
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "本文方法在所有数据集上均取得**最佳 F1 表现**。"
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 34,
+    "_fits": true,
+    "_index": 5,
+    "_page": 4
+  },
+  {
+    "id": "ending-6",
+    "type": "ending",
+    "_index": 6
+  }
+]

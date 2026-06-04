@@ -1,0 +1,279 @@
+[
+  {
+    "id": "cover-1",
+    "type": "cover",
+    "_index": 0
+  },
+  {
+    "id": "contents-2",
+    "type": "contents",
+    "_index": 1
+  },
+  {
+    "id": "part-3",
+    "type": "part",
+    "sectionId": "sec1",
+    "_index": 2
+  },
+  {
+    "id": "content-4",
+    "type": "content",
+    "sectionId": "sec1",
+    "heading": "1.1 研究背景",
+    "layout": "text-only",
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "医学影像是临床诊断的重要依据，深度学习的发展为影像自动分析带来了新的机遇。"
+      },
+      {
+        "kind": "paragraph",
+        "text": "随着多模态数据的普及，**如何有效融合影像、文本与结构化信息成为关键科学问题**。"
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 20,
+    "_fits": true,
+    "_index": 3,
+    "_page": 1
+  },
+  {
+    "id": "content-5",
+    "type": "content",
+    "sectionId": "sec1",
+    "heading": "1.2 研究问题",
+    "layout": "text-only",
+    "blocks": [
+      {
+        "kind": "list",
+        "ordered": false,
+        "items": [
+          "单模态模型难以充分利用临床多源信息",
+          "标注数据稀缺，模型泛化能力不足",
+          "**多模态对齐与融合缺乏统一框架**"
+        ]
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 20,
+    "_fits": true,
+    "_index": 4,
+    "_page": 2
+  },
+  {
+    "id": "part-6",
+    "type": "part",
+    "sectionId": "sec2",
+    "_index": 5
+  },
+  {
+    "id": "content-7",
+    "type": "content",
+    "sectionId": "sec2",
+    "heading": "2.1 总体框架",
+    "layout": "text-image-bottom",
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "本研究构建统一的多模态表示学习框架，支持影像与文本的协同建模。"
+      },
+      {
+        "kind": "image",
+        "alt": "多模态模型架构",
+        "src": "sample_images/model_arch.svg",
+        "caption": "图1 多模态表示学习总体框架",
+        "missing": false,
+        "w": 680,
+        "h": 680,
+        "ratio": 1,
+        "shape": "square",
+        "fit": "contain",
+        "keepBig": true,
+        "preferLayout": "text-image-bottom",
+        "outSrc": "assets/model_arch.svg"
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 20,
+    "_fits": true,
+    "_index": 6,
+    "_page": 3
+  },
+  {
+    "id": "content-8",
+    "type": "content",
+    "sectionId": "sec2",
+    "heading": "2.2 数据流程",
+    "layout": "image-full",
+    "blocks": [
+      {
+        "kind": "image",
+        "alt": "数据处理与标注流程",
+        "src": "sample_images/data_flow.svg",
+        "caption": "图2 数据采集、脱敏与标注流程",
+        "missing": false,
+        "w": 1000,
+        "h": 430,
+        "ratio": 2.326,
+        "shape": "wide",
+        "fit": "contain",
+        "keepBig": true,
+        "preferLayout": "text-image-bottom",
+        "outSrc": "assets/data_flow.svg"
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 20,
+    "_fits": true,
+    "_index": 7,
+    "_page": 4
+  },
+  {
+    "id": "part-9",
+    "type": "part",
+    "sectionId": "sec3",
+    "_index": 8
+  },
+  {
+    "id": "content-10",
+    "type": "content",
+    "sectionId": "sec3",
+    "heading": "3.1 三项关键技术",
+    "layout": "three-points",
+    "blocks": [
+      {
+        "kind": "list",
+        "ordered": false,
+        "items": [
+          "跨模态对齐",
+          "弱监督预训练",
+          "不确定性估计"
+        ]
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 20,
+    "_fits": true,
+    "_index": 9,
+    "_page": 5
+  },
+  {
+    "id": "part-11",
+    "type": "part",
+    "sectionId": "sec4",
+    "_index": 10
+  },
+  {
+    "id": "content-12",
+    "type": "content",
+    "sectionId": "sec4",
+    "heading": "4.1 主要结果",
+    "layout": "text-image-bottom",
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "在多个公开数据集上，本文方法相比基线取得稳定提升。"
+      },
+      {
+        "kind": "image",
+        "alt": "性能对比",
+        "src": "sample_images/result_chart.svg",
+        "caption": "图3 不同方法的性能对比",
+        "missing": false,
+        "w": 900,
+        "h": 600,
+        "ratio": 1.5,
+        "shape": "landscape",
+        "fit": "contain",
+        "keepBig": true,
+        "preferLayout": "text-image-bottom",
+        "outSrc": "assets/result_chart.svg"
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 20,
+    "_fits": true,
+    "_index": 11,
+    "_page": 6
+  },
+  {
+    "id": "content-13",
+    "type": "content",
+    "sectionId": "sec4",
+    "heading": "4.2 定量评估",
+    "layout": "table",
+    "blocks": [
+      {
+        "kind": "table",
+        "headers": [
+          "数据集",
+          "基线 AUC",
+          "本文 AUC",
+          "提升"
+        ],
+        "rows": [
+          [
+            "数据集 A",
+            "0.882",
+            "0.931",
+            "+4.9"
+          ],
+          [
+            "数据集 B",
+            "0.857",
+            "0.910",
+            "+5.3"
+          ],
+          [
+            "数据集 C",
+            "0.873",
+            "0.925",
+            "+5.2"
+          ]
+        ]
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 20,
+    "_fits": true,
+    "_index": 12,
+    "_page": 7
+  },
+  {
+    "id": "part-14",
+    "type": "part",
+    "sectionId": "sec5",
+    "_index": 13
+  },
+  {
+    "id": "content-15",
+    "type": "content",
+    "sectionId": "sec5",
+    "heading": "5.1 总结与展望",
+    "layout": "text-only",
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "本文提出的多模态框架在医学影像分析中表现出色，**未来将拓展到更多临床场景与实时推理部署**。"
+      }
+    ],
+    "_splitIndex": 0,
+    "_splitTotal": 1,
+    "bodySize": 20,
+    "_fits": true,
+    "_index": 14,
+    "_page": 8
+  },
+  {
+    "id": "ending-16",
+    "type": "ending",
+    "_index": 15
+  }
+]

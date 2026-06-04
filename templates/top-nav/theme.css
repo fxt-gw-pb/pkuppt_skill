@@ -1,0 +1,88 @@
+/* =============================================================================
+ * top-nav/theme.css — PKU red, top horizontal nav + Part transition pages.
+ * Design space 1280×720. Chrome only; flowed body lives inside .page-body.
+ * Faithful to the source template — no gradients/shadows/3D.
+ * ========================================================================== */
+:root{
+  --pku-red:#9E0000;
+  --pku-red-edge:#9B0000;
+  --gold:#CFAF6A;
+  --ink:#262626;
+  --foot:#404040;
+  --nav-bg:#FAFAFA;
+  --soft:#F0F0F0;
+  --white:#ffffff;
+  --sans:"Microsoft YaHei","微软雅黑","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
+  --serif:"SimSun","宋体","Songti SC",STSong,serif;
+  --band-y:227px;
+  --band-h:266px;
+  --nav-h:62px;
+  --nav-logo-w:332px;
+  --pad-x:101px;
+  --type-cover-title:80px;
+  --type-cover-sub:32px;
+  --type-foot:27px;
+  --type-toc-big:72px;
+  --type-toc-en:26px;
+  --type-toc-item:32px;
+  --type-part-label:48px;
+  --type-part-title:72px;
+  --type-part-en:25px;
+  --type-page-title:28px;
+  --type-page-bar:37px;
+  --type-pagenum:20px;
+}
+.slide{font-family:var(--sans);color:var(--ink);}
+.slide--dark{color:#fff;}
+
+/* logo (校徽 image) */
+.emblem{display:block;object-fit:contain;}
+.emblem.lg{width:108px;height:108px;}
+.emblem.part{width:76px;height:76px;}
+.emblem.sm{width:46px;height:46px;}
+
+/* shared red band (cover/part/ending) */
+.band{position:absolute;left:0;right:0;top:var(--band-y);height:var(--band-h);background:var(--pku-red);}
+.pagenum{position:absolute;right:34px;bottom:24px;font-size:var(--type-pagenum);color:var(--foot);letter-spacing:1px;font-family:Arial,var(--sans);}
+.slide--dark .pagenum{color:rgba(255,255,255,.85);}
+
+/* cover / ending */
+.cover-logo{position:absolute;top:62px;left:0;right:0;display:flex;justify-content:center;}
+.cover-band-inner{position:absolute;left:0;right:0;top:var(--band-y);height:var(--band-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;text-align:center;color:#fff;}
+.cover-title{font-size:var(--cover-title-size,80px);font-weight:700;letter-spacing:8px;line-height:1.12;padding:0 60px;}
+.cover-sub{font-size:var(--type-cover-sub);font-weight:700;letter-spacing:6px;}
+.cover-foot{position:absolute;left:0;right:0;top:560px;display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--foot);font-size:var(--type-foot);}
+.cover-foot .row{display:flex;gap:96px;}
+.end-title{font-size:var(--type-cover-title);font-weight:700;letter-spacing:6px;line-height:1.15;}
+.end-sub{font-size:var(--type-cover-sub);font-weight:400;letter-spacing:3px;font-family:Arial,var(--sans);}
+
+/* contents / TOC */
+.toc{position:absolute;inset:0;display:flex;align-items:center;}
+.toc-left{width:38%;padding-left:86px;display:flex;flex-direction:column;justify-content:center;}
+.toc-left .cn{font-size:var(--type-toc-big);font-weight:700;color:var(--pku-red);letter-spacing:8px;line-height:1;}
+.toc-left .en{margin-top:18px;font-size:var(--type-toc-en);letter-spacing:8px;color:var(--gold);font-family:Arial,var(--sans);font-weight:700;}
+.toc-left .deco{margin-top:26px;width:70px;height:4px;background:var(--pku-red);}
+.toc-right{flex:1;padding-right:120px;display:flex;flex-direction:column;justify-content:center;gap:var(--toc-gap,30px);}
+.toc-item{display:flex;align-items:center;gap:26px;}
+.toc-item .num{width:60px;height:60px;flex:0 0 auto;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;font-family:Arial,var(--sans);}
+.toc-item .t{font-size:var(--type-toc-item);font-weight:700;color:var(--ink);letter-spacing:2px;}
+.toc-item .line{flex:1;height:1px;background:var(--soft);}
+
+/* Part transition */
+.part-logo{top:50px!important;}
+.part-label{position:absolute;left:0;right:0;top:150px;text-align:center;color:var(--pku-red);font-family:Arial,var(--sans);font-weight:900;font-size:var(--type-part-label);letter-spacing:2px;}
+.part-band-inner{position:absolute;left:0;right:0;top:var(--band-y);height:var(--band-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;color:#fff;text-align:center;}
+.part-cn{font-size:var(--type-part-title);font-weight:700;letter-spacing:10px;line-height:1;}
+.part-en{font-size:var(--type-part-en);letter-spacing:3px;font-family:Arial,var(--sans);text-transform:capitalize;opacity:.96;}
+
+/* content */
+.nav{position:absolute;top:0;left:0;right:0;height:var(--nav-h);background:var(--nav-bg);display:flex;align-items:stretch;border-bottom:1px solid #ececec;}
+.nav-logo{width:var(--nav-logo-w);flex:0 0 auto;display:flex;align-items:center;padding-left:34px;}
+.nav-items{flex:1;display:flex;align-items:stretch;}
+.nav-item{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--ink);font-weight:700;letter-spacing:1px;padding:0 4px;line-height:1.15;}
+.nav-item.on{background:var(--pku-red);color:#fff;}
+.page-title{position:absolute;top:103px;left:var(--pad-x);display:flex;align-items:baseline;gap:8px;font-size:var(--type-page-title);font-weight:700;color:var(--ink);letter-spacing:1px;}
+.page-title .no{color:var(--pku-red);}
+.page-bar{position:absolute;top:206px;left:var(--pad-x);right:var(--pad-x);height:83px;background:var(--pku-red);display:flex;align-items:center;padding:0 30px;color:#fff;font-size:var(--type-page-bar);font-weight:700;letter-spacing:3px;}
+.page-body{position:absolute;left:var(--pad-x);right:var(--pad-x);top:320px;bottom:64px;}
+.page-body.no-bar{top:170px;}

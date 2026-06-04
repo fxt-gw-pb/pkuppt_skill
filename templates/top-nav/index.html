@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>北京大学 · 答辩模板</title>
+<style>
+:root{
+  /* ===== 颜色 ===== */
+  --pku-red:#9E0000;
+  --pku-red-edge:#9B0000;
+  --gold:#CFAF6A;
+  --ink:#262626;
+  --foot:#404040;
+  --nav-bg:#FAFAFA;
+  --soft:#F0F0F0;
+  --white:#ffffff;
+
+  /* ===== 字体 ===== */
+  --sans:"Microsoft YaHei","微软雅黑","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
+  --serif:"SimSun","宋体","Songti SC",STSong,serif;
+
+  /* ===== 画布尺寸 (16:9) ===== */
+  --W:1280px;
+  --H:720px;
+
+  /* ===== 几何/排版刻度 (源自 960×540pt × 1.3333) ===== */
+  --band-y:227px;          /* 红条带顶 */
+  --band-h:266px;          /* 红条带高 */
+  --nav-h:62px;            /* 正文页导航条高 */
+  --nav-logo-w:332px;      /* 导航条左侧 logo 区宽 */
+  --pad-x:101px;           /* 正文页左右留白 */
+
+  --type-cover-title:80px;
+  --type-cover-sub:32px;
+  --type-foot:27px;
+  --type-toc-big:72px;
+  --type-toc-en:26px;
+  --type-toc-item:32px;
+  --type-part-label:48px;
+  --type-part-title:72px;
+  --type-part-en:25px;
+  --type-page-title:28px;
+  --type-page-bar:37px;
+  --type-pagenum:20px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{background:#1c1c1c;font-family:var(--sans);color:var(--ink);overflow:hidden}
+
+/* ===== 缩放舞台 ===== */
+#viewport{position:fixed;inset:0;overflow:hidden;background:#1c1c1c}
+#stage{position:absolute;top:50%;left:50%;width:var(--W);height:var(--H);transform-origin:center center}
+
+.slide{
+  position:absolute;inset:0;width:var(--W);height:var(--H);
+  background:var(--white);overflow:hidden;
+  display:none;
+}
+.slide.active{display:block}
+
+/* ===== 公共: 页码 ===== */
+.pagenum{position:absolute;right:34px;bottom:24px;font-size:var(--type-pagenum);color:var(--foot);letter-spacing:1px;font-family:Arial,var(--sans)}
+.slide--dark .pagenum{color:rgba(255,255,255,.85)}
+
+/* ===== LOGO 锁定组合 ===== */
+.logo{display:inline-flex;align-items:center;gap:14px}
+.logo .seal{
+  width:62px;height:62px;border-radius:50%;
+  border:2.5px solid currentColor;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-weight:700;line-height:1;
+  position:relative;
+}
+.logo .seal::after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px solid currentColor;opacity:.55}
+.logo .seal span{font-size:24px;letter-spacing:1px}
+.logo .wm{display:flex;flex-direction:column;justify-content:center;gap:3px}
+.logo .wm .cn{font-family:var(--serif);font-weight:700;font-size:26px;letter-spacing:6px;line-height:1}
+.logo .wm .en{font-family:Arial,var(--sans);font-size:10px;letter-spacing:3.5px;line-height:1;opacity:.92}
+.logo.red{color:var(--pku-red)}
+.logo.white{color:var(--white)}
+.logo.lg .seal{width:74px;height:74px}
+.logo.lg .seal span{font-size:29px}
+.logo.lg .wm .cn{font-size:31px;letter-spacing:8px}
+.logo.lg .wm .en{font-size:12px;letter-spacing:4.5px}
+
+/* ===== 封面 / 结束 ===== */
+.cover-logo{position:absolute;top:62px;left:0;right:0;display:flex;justify-content:center}
+.band{position:absolute;left:0;right:0;top:var(--band-y);height:var(--band-h);background:var(--pku-red)}
+.cover-band-inner{position:absolute;left:0;right:0;top:var(--band-y);height:var(--band-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;text-align:center;color:#fff}
+.cover-title{font-size:var(--type-cover-title);font-weight:700;letter-spacing:8px;line-height:1.1}
+.cover-sub{font-size:var(--type-cover-sub);font-weight:700;letter-spacing:6px}
+.cover-foot{position:absolute;left:0;right:0;top:560px;display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--foot);font-size:var(--type-foot)}
+.cover-foot .row{display:flex;gap:96px}
+.cover-foot .row span b{font-weight:400}
+.cover-rule{width:54px;height:3px;background:var(--gold);margin:2px auto 0}
+
+/* 结束页 */
+.end-title{font-size:var(--type-cover-title);font-weight:700;letter-spacing:6px;line-height:1.15}
+.end-sub{font-size:var(--type-cover-sub);font-weight:400;letter-spacing:3px;font-family:Arial,var(--sans)}
+
+/* ===== 目录 ===== */
+.toc{position:absolute;inset:0;display:flex;align-items:center}
+.toc-left{width:38%;padding-left:86px;display:flex;flex-direction:column;justify-content:center}
+.toc-left .cn{font-size:var(--type-toc-big);font-weight:700;color:var(--pku-red);letter-spacing:8px;line-height:1}
+.toc-left .en{margin-top:18px;font-size:var(--type-toc-en);letter-spacing:8px;color:var(--gold);font-family:Arial,var(--sans);font-weight:700}
+.toc-left .deco{margin-top:26px;width:70px;height:4px;background:var(--pku-red)}
+.toc-right{flex:1;padding-right:120px;display:flex;flex-direction:column;justify-content:center;gap:var(--toc-gap,30px)}
+.toc-item{display:flex;align-items:center;gap:26px}
+.toc-item .num{width:60px;height:60px;flex:0 0 auto;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;font-family:Arial,var(--sans)}
+.toc-item .t{font-size:var(--type-toc-item);font-weight:700;color:var(--ink);letter-spacing:2px}
+.toc-item .line{flex:1;height:1px;background:var(--soft)}
+
+/* ===== Part 过渡页 ===== */
+.part-logo{top:50px!important}
+.part-label{position:absolute;left:0;right:0;top:150px;text-align:center;color:var(--pku-red);font-family:Arial,var(--sans);font-weight:900;font-size:var(--type-part-label);letter-spacing:2px}
+.part-band-inner{position:absolute;left:0;right:0;top:var(--band-y);height:var(--band-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;color:#fff;text-align:center}
+.part-cn{font-size:var(--type-part-title);font-weight:700;letter-spacing:10px;line-height:1}
+.part-en{font-size:var(--type-part-en);letter-spacing:3px;font-family:Arial,var(--sans);text-transform:capitalize;opacity:.96}
+
+/* ===== 正文页 ===== */
+.nav{position:absolute;top:0;left:0;right:0;height:var(--nav-h);background:var(--nav-bg);display:flex;align-items:stretch;border-bottom:1px solid #ececec}
+.nav-logo{width:var(--nav-logo-w);flex:0 0 auto;display:flex;align-items:center;padding-left:34px}
+.emblem{display:block}
+.nav-logo .logo .wm .cn{font-size:20px;letter-spacing:4px}
+.nav-logo .logo .wm .en{font-size:8px;letter-spacing:2.5px}
+.nav-logo .logo .seal{width:42px;height:42px}
+.nav-logo .logo .seal span{font-size:16px}
+.nav-logo .logo .seal::after{inset:3px}
+.nav-items{flex:1;display:flex;align-items:stretch}
+.nav-item{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--ink);font-weight:700;letter-spacing:1px;padding:0 4px}
+.nav-item.on{background:var(--pku-red);color:#fff}
+
+.page-title{position:absolute;top:103px;left:var(--pad-x);display:flex;align-items:baseline;gap:8px;font-size:var(--type-page-title);font-weight:700;color:var(--ink);letter-spacing:1px}
+.page-title .no{color:var(--pku-red)}
+.page-bar{position:absolute;top:206px;left:var(--pad-x);right:var(--pad-x);height:83px;background:var(--pku-red);display:flex;align-items:center;padding:0 30px;color:#fff;font-size:var(--type-page-bar);font-weight:700;letter-spacing:3px}
+.page-body{position:absolute;left:var(--pad-x);right:var(--pad-x);top:320px;bottom:64px;overflow:hidden}
+.page-body.no-bar{top:170px}
+.body-ph{height:100%;display:flex;align-items:center;justify-content:center;color:#bdbdbd;font-size:22px;letter-spacing:2px;border:1px dashed #e0e0e0}
+
+/* 正文常用块 (供 body HTML 使用) */
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;height:100%}
+.card{padding:30px;color:#fff;display:flex;flex-direction:column;gap:16px}
+.card.red{background:var(--pku-red)}
+.card.gold{background:var(--gold)}
+.card .cn{font-size:24px;font-weight:700;font-family:Arial,var(--sans)}
+.card .tx{font-size:16px;line-height:1.7;opacity:.95}
+.lead{font-size:19px;line-height:1.9;color:#444}
+.lead.center{text-align:center}
+
+/* ===== 控制条 (屏幕显示, 打印隐藏) ===== */
+#controls{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);padding:8px 16px;border-radius:40px;z-index:50;opacity:.25;transition:opacity .2s}
+#controls:hover{opacity:1}
+#controls button{appearance:none;border:none;background:transparent;color:#fff;font-size:18px;cursor:pointer;padding:4px 8px;line-height:1}
+#controls .ind{color:#fff;font-size:13px;font-family:Arial;letter-spacing:1px;min-width:60px;text-align:center}
+
+/* ===== 打印 / PDF ===== */
+@media print{
+  @page{size:1280px 720px;margin:0}
+  body{background:#fff;overflow:visible}
+  #viewport{position:static;overflow:visible;background:#fff}
+  #stage{position:static;top:auto;left:auto;transform:none!important;width:1280px;height:auto}
+  .slide{position:relative;display:block!important;page-break-after:always;break-after:page;box-shadow:none}
+  #controls{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="viewport">
+  <div id="stage"><div id="deck"></div></div>
+</div>
+
+<div id="controls">
+  <button id="prev" aria-label="上一页">‹</button>
+  <div class="ind"><span id="cur">1</span> / <span id="tot">1</span></div>
+  <button id="next" aria-label="下一页">›</button>
+  <button id="print" title="打印 / 导出 PDF" style="font-size:14px">⤓ PDF</button>
+</div>
+
+<script src="image-slot.js"></script>
+<script>
+/* ============================================================
+   北京大学 · 红色答辩模板  —  数据驱动配置
+   只需修改 deckConfig 即可生成整套 PPT
+   ============================================================ */
+const deckConfig = {
+  title: "标题",
+  subtitle: "副标题",
+  presenter: "XXX",
+  advisor: "XXX",
+  date: "XX年XX月XX日",
+  logo: { img: "assets/pku-seal.png" },   // 校徽：图片地址（已烘焙，全局生效）；留空则显示圆形占位可拖入
+
+  /* —— 章节: 决定导航栏 / 目录 / Part 页, 任意增删自动适配 —— */
+  sections: [
+    { id:"intro",   title:"绪论背景",     englishTitle:"Introduction Background" },
+    { id:"methods", title:"研究思路方法", englishTitle:"Research Ideas And Methods" },
+    { id:"tech",    title:"关键技术难点", englishTitle:"Key Technologies And Difficulties" },
+    { id:"results", title:"研究成果",     englishTitle:"Research Findings" },
+    { id:"summary", title:"总结与展望",   englishTitle:"Summary And Outlook" }
+  ],
+
+  /* —— 幻灯片序列 —— */
+  slides: [
+    { type:"cover" },
+    { type:"contents" },
+
+    { type:"part", sectionId:"intro" },
+    { type:"content", sectionId:"intro", title:"1.1 研究背景", subtitle:"研究背景概述",
+      body:`<div class="cards3">
+        <div class="card red"><div class="cn">01</div><div class="tx">正文内容。在此粘贴您的文字（建议右键“只保留文字”），即可替换为您要呈现的研究背景说明。</div></div>
+        <div class="card gold"><div class="cn">02</div><div class="tx">正文内容。在此粘贴您的文字（建议右键“只保留文字”），即可替换为您要呈现的研究背景说明。</div></div>
+        <div class="card red"><div class="cn">03</div><div class="tx">正文内容。在此粘贴您的文字（建议右键“只保留文字”），即可替换为您要呈现的研究背景说明。</div></div>
+      </div>` },
+    { type:"content", sectionId:"intro", title:"1.2 研究意义", subtitle:"理论意义与应用价值",
+      body:`<p class="lead">　　在此输入研究意义的正文内容。本模板正文区可自由放置段落、列表、表格或图片，整体风格与北京大学红色学术答辩模板保持一致。</p>
+            <p class="lead">　　建议每页文字精简、层次清晰，配合上方红色小标题条与顶部章节导航，形成统一的视觉节奏。</p>` },
+
+    { type:"part", sectionId:"methods" },
+    { type:"content", sectionId:"methods", title:"2.1 研究思路概述", subtitle:"总体技术路线",
+      body:`<p class="lead center">　　在此放置研究思路 / 技术路线说明，可插入流程图、示意图或表格。</p>
+            <div class="body-ph" style="margin-top:24px;height:240px">图片 / 流程图占位 — 替换为您的素材</div>` },
+
+    { type:"part", sectionId:"tech" },
+    { type:"part", sectionId:"results" },
+    { type:"part", sectionId:"summary" },
+
+    { type:"ending" }
+  ]
+};
+
+/* ============================================================
+   渲染引擎
+   ============================================================ */
+const $=(s,el=document)=>el.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+
+function logoHTML(variant){
+  // 仅渲染校徽。已提供 logo.img 时用 <img> 烘焙；未提供时用圆形 image-slot 供拖入（全局同 id 一次生效）。
+  const L=deckConfig.logo||{};
+  let size = 100, ph = "拖入校徽";
+  if(/lg/.test(variant)) size=108;
+  else if(/sm/.test(variant)){ size=46; ph=""; }
+  else size=76; // part
+  if(L.img){
+    return `<img class="emblem" src="${esc(L.img)}" alt="校徽" style="width:${size}px;height:${size}px;object-fit:contain;display:block">`;
+  }
+  return `<image-slot id="pku-emblem" class="emblem" shape="circle" fit="contain" placeholder="${ph}" style="width:${size}px;height:${size}px"></image-slot>`;
+}
+const sectionById=id=>deckConfig.sections.find(s=>s.id===id);
+const sectionIndex=id=>deckConfig.sections.findIndex(s=>s.id===id); // 0-based
+const pad2=n=>String(n).padStart(2,"0");
+
+function navHTML(activeId){
+  const secs=deckConfig.sections;
+  // 章节多时自动缩小字号
+  const n=secs.length;
+  const fs = n<=5 ? 21 : n<=6 ? 19 : n<=7 ? 17 : 15;
+  const fsOn = n<=5 ? 27 : n<=6 ? 24 : n<=7 ? 22 : 19;
+  const items=secs.map(s=>{
+    const on=s.id===activeId;
+    return `<div class="nav-item ${on?'on':''}" style="font-size:${on?fsOn:fs}px">${esc(s.title)}</div>`;
+  }).join("");
+  return `<div class="nav">
+    <div class="nav-logo">${logoHTML('sm')}</div>
+    <div class="nav-items">${items}</div>
+  </div>`;
+}
+
+function renderCover(){
+  const c=deckConfig;
+  return `<div class="cover-logo">${logoHTML('lg')}</div>
+    <div class="cover-band-inner">
+      <div class="cover-title">${esc(c.title)}</div>
+      <div class="cover-sub">${esc(c.subtitle)}</div>
+    </div>
+    <div class="cover-foot">
+      <div class="row">
+        <span>答辩人：${esc(c.presenter)}</span>
+        <span>指导老师：${esc(c.advisor)}</span>
+      </div>
+      <span>答辩时间：${esc(c.date)}</span>
+    </div>`;
+}
+
+function renderContents(){
+  const secs=deckConfig.sections;
+  const n=secs.length;
+  const gap = n<=5?30:n<=6?22:n<=7?16:12;
+  const items=secs.map((s,i)=>`
+    <div class="toc-item">
+      <div class="num">${pad2(i+1)}</div>
+      <div class="t">${esc(s.title)}</div>
+      <div class="line"></div>
+    </div>`).join("");
+  return `<div class="toc">
+    <div class="toc-left">
+      <div class="cn">目录</div>
+      <div class="en">CONTENTS</div>
+      <div class="deco"></div>
+    </div>
+    <div class="toc-right" style="--toc-gap:${gap}px">${items}</div>
+  </div>`;
+}
+
+function renderPart(sl){
+  const sec=sectionById(sl.sectionId);
+  const idx=sectionIndex(sl.sectionId);
+  return `<div class="cover-logo part-logo">${logoHTML('part')}</div>
+    <div class="part-label">Part.${pad2(idx+1)}</div>
+    <div class="part-band-inner">
+      <div class="part-cn">${esc(sec?sec.title:'')}</div>
+      <div class="part-en">${esc(sec?sec.englishTitle:'')}</div>
+    </div>`;
+}
+
+function renderContent(sl){
+  const titleNo = sl.title? sl.title.match(/^[\d.]+/) : null;
+  let titleHtml;
+  if(titleNo){
+    const rest=sl.title.slice(titleNo[0].length).trim();
+    titleHtml=`<span class="no">${esc(titleNo[0])}</span><span>${esc(rest)}</span>`;
+  } else { titleHtml=`<span>${esc(sl.title||'')}</span>`; }
+  const bar = sl.subtitle ? `<div class="page-bar">${esc(sl.subtitle)}</div>` : "";
+  const body = sl.body ? sl.body : `<div class="body-ph">正文内容区 — 在 deckConfig 中通过 body 字段填入文字 / 图片 / 表格</div>`;
+  return navHTML(sl.sectionId)
+    + `<div class="page-title">${titleHtml}</div>`
+    + bar
+    + `<div class="page-body ${sl.subtitle?'':'no-bar'}">${body}</div>`;
+}
+
+function renderEnding(){
+  const c=deckConfig;
+  return `<div class="cover-logo">${logoHTML('lg')}</div>
+    <div class="cover-band-inner">
+      <div class="end-title">感谢倾听！欢迎批评指正！</div>
+      <div class="end-sub">Thanks for your listening!</div>
+    </div>
+    <div class="cover-foot">
+      <div class="row">
+        <span>答辩人：${esc(c.presenter)}</span>
+        <span>指导老师：${esc(c.advisor)}</span>
+      </div>
+      <span>答辩时间：${esc(c.date)}</span>
+    </div>`;
+}
+
+function buildDeck(){
+  const deck=$("#deck");
+  deck.innerHTML="";
+  deckConfig.slides.forEach((sl,i)=>{
+    const sec=document.createElement("section");
+    const dark = sl.type==="cover"||sl.type==="part"||sl.type==="ending";
+    sec.className="slide"+(dark?" slide--dark":"");
+    sec.dataset.screenLabel=pad2(i+1);
+    let inner="";
+    switch(sl.type){
+      case "cover": inner=renderCover(); break;
+      case "contents": inner=renderContents(); break;
+      case "part": inner=renderPart(sl); break;
+      case "content": inner=renderContent(sl); break;
+      case "ending": inner=renderEnding(); break;
+      default: inner=`<div class="body-ph">未知页型: ${esc(sl.type)}</div>`;
+    }
+    // 红条带（封面/结束/Part 共用）置于装饰之下
+    if(sl.type==="cover"||sl.type==="ending"||sl.type==="part"){
+      inner = `<div class="band"></div>` + inner;
+    }
+    sec.innerHTML = inner + `<div class="pagenum">${pad2(i+1)}</div>`;
+    deck.appendChild(sec);
+  });
+}
+
+/* ===== 导航 / 缩放 ===== */
+let idx=0, slides=[];
+function showSlide(i){
+  i=Math.max(0,Math.min(slides.length-1,i));
+  idx=i;
+  slides.forEach((s,k)=>s.classList.toggle("active",k===i));
+  $("#cur").textContent=i+1;
+  try{localStorage.setItem("pku_deck_pos",i);}catch(e){}
+  location.hash="s"+(i+1);
+}
+function fit(){
+  const s=Math.min(window.innerWidth/1280, window.innerHeight/720);
+  $("#stage").style.transform=`translate(-50%,-50%) scale(${s})`;
+}
+
+function init(){
+  buildDeck();
+  slides=[...document.querySelectorAll(".slide")];
+  $("#tot").textContent=slides.length;
+  let start=0;
+  const h=location.hash.match(/^#s(\d+)$/);
+  if(h) start=+h[1]-1;
+  else { try{const v=localStorage.getItem("pku_deck_pos"); if(v!=null) start=+v;}catch(e){} }
+  showSlide(start);
+  fit();
+  window.addEventListener("resize",fit);
+  $("#prev").onclick=()=>showSlide(idx-1);
+  $("#next").onclick=()=>showSlide(idx+1);
+  $("#print").onclick=()=>window.print();
+  document.addEventListener("keydown",e=>{
+    if(e.key==="ArrowRight"||e.key==="PageDown"||e.key===" "){e.preventDefault();showSlide(idx+1);}
+    else if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();showSlide(idx-1);}
+    else if(e.key==="Home"){showSlide(0);}
+    else if(e.key==="End"){showSlide(slides.length-1);}
+  });
+  // 点击右/左半屏翻页
+  $("#viewport").addEventListener("click",e=>{
+    if(e.target.closest("#controls"))return;
+    const x=e.clientX/window.innerWidth;
+    if(x>0.62)showSlide(idx+1); else if(x<0.38)showSlide(idx-1);
+  });
+}
+document.addEventListener("DOMContentLoaded",init);
+</script>
+</body>
+</html>

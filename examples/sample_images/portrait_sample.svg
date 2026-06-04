@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="820" viewBox="0 0 500 820" font-family="Microsoft YaHei, Arial, sans-serif">
+  <rect width="500" height="820" fill="#ffffff"/>
+  <rect x="40" y="40" width="420" height="740" fill="none" stroke="#cccccc" stroke-width="2"/>
+  <g text-anchor="middle" font-size="22" fill="#262626">
+    <rect x="90" y="90"  width="320" height="90" rx="6" fill="#f4eaea" stroke="#9E0000" stroke-width="2"/>
+    <text x="250" y="143">数据采集</text>
+    <rect x="90" y="250" width="320" height="90" rx="6" fill="#f4eaea" stroke="#9E0000" stroke-width="2"/>
+    <text x="250" y="303">特征工程</text>
+    <rect x="90" y="410" width="320" height="90" rx="6" fill="#f4eaea" stroke="#9E0000" stroke-width="2"/>
+    <text x="250" y="463">模型训练</text>
+    <rect x="90" y="570" width="320" height="90" rx="6" fill="#f4eaea" stroke="#9E0000" stroke-width="2"/>
+    <text x="250" y="623">效果评估</text>
+    <rect x="120" y="690" width="260" height="70" rx="6" fill="#9E0000"/>
+    <text x="250" y="733" fill="#fff">部署应用</text>
+  </g>
+  <g stroke="#9E0000" stroke-width="3" fill="none" marker-end="url(#d)">
+    <path d="M250 180 V250"/><path d="M250 340 V410"/><path d="M250 500 V570"/><path d="M250 660 V690"/>
+  </g>
+  <defs><marker id="d" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#9E0000"/></marker></defs>
+</svg>

@@ -1,0 +1,108 @@
+{
+  "revision_id": "rev-1",
+  "revision_time": "2026-06-04T07:54:16.265Z",
+  "user_request": "# 返修意见（自然语言示例）\n\n- 第 2 页：正文拆成两页，标题分别为「1.2 研究意义（一）」和「1.2 研究意义（二）」。\n- 把\"研究方法\"这一章的导航标题改成「研究设计与方法」。\n- 全局：所有 **加粗重点** 使用北大红强调。\n- 第 1 页：图片放大一点。\n- 模板：保持模板不变。\n- 不要动正文内容，只修复可能出现的溢出与重叠。\n",
+  "ops": [
+    {
+      "action": "split_text",
+      "target": {
+        "page": 2
+      },
+      "headings": [
+        "1.2 研究意义（一）",
+        "1.2 研究意义（二）"
+      ]
+    },
+    {
+      "action": "rename_section",
+      "target": {
+        "sectionTitle": "研究方法"
+      },
+      "to": "研究设计与方法"
+    },
+    {
+      "action": "emphasize_bold",
+      "style": "pku-red"
+    },
+    {
+      "action": "enlarge_image",
+      "target": {
+        "page": 1
+      }
+    }
+  ],
+  "constraints": {
+    "keepTemplate": true,
+    "onlyLayout": false
+  },
+  "changes": [
+    {
+      "action": "split_text",
+      "ok": true,
+      "affected": [
+        2,
+        3
+      ],
+      "note": "拆为 2 页"
+    },
+    {
+      "action": "rename_section",
+      "ok": true,
+      "affected": [
+        "sec2"
+      ],
+      "note": "「研究方法」-> 「研究设计与方法」"
+    },
+    {
+      "action": "emphasize_bold",
+      "ok": true,
+      "affected": [],
+      "note": "加粗重点样式 -> pku-red"
+    },
+    {
+      "action": "enlarge_image",
+      "ok": true,
+      "affected": [
+        1
+      ],
+      "note": "已是大图布局，保持文字可见，未切到 image-full"
+    }
+  ],
+  "affected_slides": [
+    2,
+    3,
+    "sec2",
+    1
+  ],
+  "changed_files": [
+    "index.html",
+    "deckConfig.json",
+    "slides.json",
+    "layout_report.json",
+    "critique_report.json"
+  ],
+  "before_summary": {
+    "slides": 10,
+    "high": 0,
+    "medium": 0,
+    "pass": true
+  },
+  "after_summary": {
+    "slides": 11,
+    "high": 0,
+    "medium": 0,
+    "pass": true
+  },
+  "validation_result": {
+    "pass": true,
+    "passNoHigh": true,
+    "high": 0,
+    "medium": 0
+  },
+  "critique_result": {
+    "score": 100,
+    "style_match": true,
+    "template_drift": false
+  },
+  "auto_repair_applied": false
+}

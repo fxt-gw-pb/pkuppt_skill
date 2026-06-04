@@ -1,0 +1,33 @@
+{
+  "id": "top-nav",
+  "zh_name": "PKU 红色上方栏模板",
+  "en_name": "PKU Red Top-Nav",
+  "source_pptx": "汇报模板-PKU-红-上方栏五部分.pptx",
+  "designSpace": { "width": 1280, "height": 720, "ratio": "16:9" },
+  "recommendedFor": "章节较多（约 5 个及以上）、内容更丰富的学术汇报；自动选择阈值：sections >= 5",
+  "slideTypes": ["cover", "contents", "part", "content", "ending"],
+  "navigation": {
+    "kind": "top horizontal bar",
+    "dataDriven": true,
+    "source": "deck.sections (任意增删，自动适配)",
+    "activeHighlight": "当前章节红底白字高亮 + 字号放大",
+    "autoShrink": "字号随章节数自动缩小 (nav.fs / nav.fsOn)"
+  },
+  "toc": { "style": "01 / 02 / 03 … 金色编号块", "autoShrink": "toc.gap by section count" },
+  "partPage": { "label": "Part.0N (按章节序号自动生成)", "fields": ["title", "englishTitle"] },
+  "safeArea": { "withBar": { "x": 101, "y": 320, "w": 1078, "h": 336 }, "noBar": { "x": 101, "y": 170, "w": 1078, "h": 486 } },
+  "reservedZones": {
+    "nav": { "x": 0, "y": 0, "w": 1280, "h": 62 },
+    "pageTitle": { "y": 103, "size": 28 },
+    "subtitleBar": { "y": 206, "h": 83, "optional": true },
+    "pageNumber": "右下角"
+  },
+  "typography": {
+    "titleMin": 26, "bodyLadder": [20, 19, 18, 17, 16], "bodyMin": 16,
+    "caption": 13, "captionMin": 12, "lineHeight": 1.7
+  },
+  "colors": { "pkuRed": "#9E0000", "gold": "#CFAF6A", "ink": "#262626", "navBg": "#FAFAFA", "soft": "#F0F0F0" },
+  "assets": ["assets/pku-seal.png"],
+  "renderer": "renderer.js (render(deck) -> 自包含 HTML)",
+  "reference": "index.html 为可手改的独立 deckConfig 演示稿；image-slot.js 为可选的拖拽填图组件（仅在 omelette 运行时有持久化，烘焙图片用 <img>）"
+}

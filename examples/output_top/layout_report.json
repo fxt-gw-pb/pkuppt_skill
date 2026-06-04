@@ -1,0 +1,106 @@
+{
+  "template": "top-nav",
+  "generatedAt": "2026-06-04T07:54:11.123Z",
+  "slides": 16,
+  "contentSlides": 8,
+  "pass": true,
+  "passNoHigh": true,
+  "counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "checks": {
+    "pageNumbersContinuous": true,
+    "navFits": true,
+    "geometryOk": true
+  },
+  "thresholds": {
+    "bodyMin": 16,
+    "captionMin": 12,
+    "titleMin": 26
+  },
+  "issues": [],
+  "perSlide": [
+    {
+      "slideId": "content-4",
+      "page": 1,
+      "layout": "text-only",
+      "bodySize": 20,
+      "textHeight": 82,
+      "textAvail": 486,
+      "fits": true,
+      "imgMinSide": null
+    },
+    {
+      "slideId": "content-5",
+      "page": 2,
+      "layout": "text-only",
+      "bodySize": 20,
+      "textHeight": 126,
+      "textAvail": 486,
+      "fits": true,
+      "imgMinSide": null
+    },
+    {
+      "slideId": "content-7",
+      "page": 3,
+      "layout": "text-image-bottom",
+      "bodySize": 20,
+      "textHeight": 34,
+      "textAvail": 204,
+      "fits": true,
+      "imgMinSide": 230
+    },
+    {
+      "slideId": "content-8",
+      "page": 4,
+      "layout": "image-full",
+      "bodySize": 20,
+      "textHeight": 0,
+      "textAvail": 486,
+      "fits": true,
+      "imgMinSide": 456
+    },
+    {
+      "slideId": "content-10",
+      "page": 5,
+      "layout": "three-points",
+      "bodySize": 20,
+      "textHeight": 126,
+      "textAvail": 486,
+      "fits": true,
+      "imgMinSide": null
+    },
+    {
+      "slideId": "content-12",
+      "page": 6,
+      "layout": "text-image-bottom",
+      "bodySize": 20,
+      "textHeight": 34,
+      "textAvail": 204,
+      "fits": true,
+      "imgMinSide": 230
+    },
+    {
+      "slideId": "content-13",
+      "page": 7,
+      "layout": "table",
+      "bodySize": 20,
+      "textHeight": 0,
+      "textAvail": 486,
+      "fits": true,
+      "imgMinSide": null
+    },
+    {
+      "slideId": "content-15",
+      "page": 8,
+      "layout": "text-only",
+      "bodySize": 20,
+      "textHeight": 34,
+      "textAvail": 486,
+      "fits": true,
+      "imgMinSide": null
+    }
+  ]
+}

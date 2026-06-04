@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>多模态深度学习在医学影像分析中的应用 · 北京大学 HTML PPT</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{background:#111;font-family:"Microsoft YaHei","微软雅黑","PingFang SC","Hiragino Sans GB",Arial,sans-serif;overflow:hidden}
+*,*::before,*::after{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#111}
+#deck{width:1280px;height:720px;flex:none;flex-shrink:0;position:relative;transform-origin:center center}
+.slide{position:absolute;inset:0;width:1280px;height:720px;background:#fff;overflow:hidden;display:none}
+.slide.active{display:block}
+#nav{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;z-index:50;background:rgba(0,0,0,.5);border-radius:999px;padding:8px 16px;color:#fff;backdrop-filter:blur(4px);opacity:.85;transition:opacity .2s}
+#nav:hover{opacity:1}
+#nav button{appearance:none;border:none;background:transparent;color:#fff;font-size:20px;cursor:pointer;padding:4px 10px;border-radius:6px;line-height:1}
+#nav button:hover{background:rgba(255,255,255,.18)}
+#nav .count{font-size:14px;min-width:60px;text-align:center;letter-spacing:1px;opacity:.9;font-family:Arial,sans-serif}
+@media print{
+  @page{size:1280px 720px;margin:0}
+  html,body{background:#fff;overflow:visible}
+  #stage{position:static;display:block;overflow:visible;background:#fff}
+  #deck{transform:none!important;width:1280px;height:720px}
+  #nav{display:none!important}
+  .slide{display:block!important;position:relative;page-break-after:always;break-after:page}
+  .slide:last-child{page-break-after:auto}
+}
+/* =============================================================================
+ * top-nav/theme.css — PKU red, top horizontal nav + Part transition pages.
+ * Design space 1280×720. Chrome only; flowed body lives inside .page-body.
+ * Faithful to the source template — no gradients/shadows/3D.
+ * ========================================================================== */
+:root{
+  --pku-red:#9E0000;
+  --pku-red-edge:#9B0000;
+  --gold:#CFAF6A;
+  --ink:#262626;
+  --foot:#404040;
+  --nav-bg:#FAFAFA;
+  --soft:#F0F0F0;
+  --white:#ffffff;
+  --sans:"Microsoft YaHei","微软雅黑","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
+  --serif:"SimSun","宋体","Songti SC",STSong,serif;
+  --band-y:227px;
+  --band-h:266px;
+  --nav-h:62px;
+  --nav-logo-w:332px;
+  --pad-x:101px;
+  --type-cover-title:80px;
+  --type-cover-sub:32px;
+  --type-foot:27px;
+  --type-toc-big:72px;
+  --type-toc-en:26px;
+  --type-toc-item:32px;
+  --type-part-label:48px;
+  --type-part-title:72px;
+  --type-part-en:25px;
+  --type-page-title:28px;
+  --type-page-bar:37px;
+  --type-pagenum:20px;
+}
+.slide{font-family:var(--sans);color:var(--ink);}
+.slide--dark{color:#fff;}
+
+/* logo (校徽 image) */
+.emblem{display:block;object-fit:contain;}
+.emblem.lg{width:108px;height:108px;}
+.emblem.part{width:76px;height:76px;}
+.emblem.sm{width:46px;height:46px;}
+
+/* shared red band (cover/part/ending) */
+.band{position:absolute;left:0;right:0;top:var(--band-y);height:var(--band-h);background:var(--pku-red);}
+.pagenum{position:absolute;right:34px;bottom:24px;font-size:var(--type-pagenum);color:var(--foot);letter-spacing:1px;font-family:Arial,var(--sans);}
+.slide--dark .pagenum{color:rgba(255,255,255,.85);}
+
+/* cover / ending */
+.cover-logo{position:absolute;top:62px;left:0;right:0;display:flex;justify-content:center;}
+.cover-band-inner{position:absolute;left:0;right:0;top:var(--band-y);height:var(--band-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;text-align:center;color:#fff;}
+.cover-title{font-size:var(--cover-title-size,80px);font-weight:700;letter-spacing:8px;line-height:1.12;padding:0 60px;}
+.cover-sub{font-size:var(--type-cover-sub);font-weight:700;letter-spacing:6px;}
+.cover-foot{position:absolute;left:0;right:0;top:560px;display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--foot);font-size:var(--type-foot);}
+.cover-foot .row{display:flex;gap:96px;}
+.end-title{font-size:var(--type-cover-title);font-weight:700;letter-spacing:6px;line-height:1.15;}
+.end-sub{font-size:var(--type-cover-sub);font-weight:400;letter-spacing:3px;font-family:Arial,var(--sans);}
+
+/* contents / TOC */
+.toc{position:absolute;inset:0;display:flex;align-items:center;}
+.toc-left{width:38%;padding-left:86px;display:flex;flex-direction:column;justify-content:center;}
+.toc-left .cn{font-size:var(--type-toc-big);font-weight:700;color:var(--pku-red);letter-spacing:8px;line-height:1;}
+.toc-left .en{margin-top:18px;font-size:var(--type-toc-en);letter-spacing:8px;color:var(--gold);font-family:Arial,var(--sans);font-weight:700;}
+.toc-left .deco{margin-top:26px;width:70px;height:4px;background:var(--pku-red);}
+.toc-right{flex:1;padding-right:120px;display:flex;flex-direction:column;justify-content:center;gap:var(--toc-gap,30px);}
+.toc-item{display:flex;align-items:center;gap:26px;}
+.toc-item .num{width:60px;height:60px;flex:0 0 auto;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;font-family:Arial,var(--sans);}
+.toc-item .t{font-size:var(--type-toc-item);font-weight:700;color:var(--ink);letter-spacing:2px;}
+.toc-item .line{flex:1;height:1px;background:var(--soft);}
+
+/* Part transition */
+.part-logo{top:50px!important;}
+.part-label{position:absolute;left:0;right:0;top:150px;text-align:center;color:var(--pku-red);font-family:Arial,var(--sans);font-weight:900;font-size:var(--type-part-label);letter-spacing:2px;}
+.part-band-inner{position:absolute;left:0;right:0;top:var(--band-y);height:var(--band-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;color:#fff;text-align:center;}
+.part-cn{font-size:var(--type-part-title);font-weight:700;letter-spacing:10px;line-height:1;}
+.part-en{font-size:var(--type-part-en);letter-spacing:3px;font-family:Arial,var(--sans);text-transform:capitalize;opacity:.96;}
+
+/* content */
+.nav{position:absolute;top:0;left:0;right:0;height:var(--nav-h);background:var(--nav-bg);display:flex;align-items:stretch;border-bottom:1px solid #ececec;}
+.nav-logo{width:var(--nav-logo-w);flex:0 0 auto;display:flex;align-items:center;padding-left:34px;}
+.nav-items{flex:1;display:flex;align-items:stretch;}
+.nav-item{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--ink);font-weight:700;letter-spacing:1px;padding:0 4px;line-height:1.15;}
+.nav-item.on{background:var(--pku-red);color:#fff;}
+.page-title{position:absolute;top:103px;left:var(--pad-x);display:flex;align-items:baseline;gap:8px;font-size:var(--type-page-title);font-weight:700;color:var(--ink);letter-spacing:1px;}
+.page-title .no{color:var(--pku-red);}
+.page-bar{position:absolute;top:206px;left:var(--pad-x);right:var(--pad-x);height:83px;background:var(--pku-red);display:flex;align-items:center;padding:0 30px;color:#fff;font-size:var(--type-page-bar);font-weight:700;letter-spacing:3px;}
+.page-body{position:absolute;left:var(--pad-x);right:var(--pad-x);top:320px;bottom:64px;}
+.page-body.no-bar{top:170px;}
+
+
+.flow{position:absolute;inset:0;}
+.flow .tx{font-size:var(--body);line-height:1.7;color:#222;margin:0 0 .55em;}
+.flow .tx:last-child{margin-bottom:0;}
+.flow .bul,.flow .num{margin:0;padding:0;list-style:none;}
+.flow .num{counter-reset:li;}
+.flow .bul li,.flow .num li{position:relative;padding-left:1.2em;font-size:var(--body);line-height:1.7;margin:.22em 0;color:#222;}
+.flow .bul li::before{content:"";position:absolute;left:.05em;top:.62em;width:.46em;height:.46em;background:var(--pku-red);}
+.flow .num li{counter-increment:li;}
+.flow .num li::before{content:counter(li)".";position:absolute;left:0;color:var(--pku-red);font-weight:700;}
+.emphasis{font-weight:700;color:var(--emphasis-color,var(--pku-red));}
+.flow strong{font-weight:700;}
+.flow .fig{margin:0;display:flex;flex-direction:column;min-height:0;height:100%;}
+.flow .fig-box{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.flow .fig-box img{max-width:100%;max-height:100%;width:auto;height:auto;object-position:center center;display:block;}
+.flow figcaption{flex:0 0 auto;margin-top:.5em;text-align:center;font-size:var(--caption);color:#5a5a5a;line-height:1.4;}
+.flow .miss{flex:1;display:flex;align-items:center;justify-content:center;border:1px dashed #ccc;color:#999;font-size:var(--caption);}
+.flow.text-image-right,.flow.image-text-right{display:flex;gap:var(--gap);align-items:stretch;}
+.flow.text-image-right .col-text{flex:0 0 54%;}
+.flow.text-image-right .col-img{flex:1 1 auto;min-width:0;}
+.flow.image-text-right .col-img{flex:1 1 auto;min-width:0;}
+.flow.image-text-right .col-text{flex:0 0 46%;}
+.flow.text-image-bottom{display:flex;flex-direction:column;gap:var(--gap);}
+.flow.text-image-bottom .col-text{flex:0 0 auto;}
+.flow.text-image-bottom .col-img{flex:1 1 auto;min-height:0;}
+.flow.image-full{display:flex;flex-direction:column;}
+.flow.image-grid .grid,.flow.image-grid-2 .grid{display:grid;gap:var(--gap);height:100%;min-height:0;}
+.flow.image-grid-2 .grid{grid-template-columns:1fr 1fr;}
+.flow.image-grid .grid{grid-template-columns:1fr 1fr;grid-auto-rows:1fr;}
+.flow.image-grid .lead,.flow.image-grid-2 .lead{margin-bottom:var(--gap);}
+.flow .lead .tx,.flow .lead li{font-size:var(--body);}
+.flow.three-points .three{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);height:100%;}
+.flow.four-cards .cards{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:var(--gap);height:100%;}
+.card-pku{background:#fff;border:1px solid #e3c9c9;border-top:6px solid var(--pku-red);padding:calc(var(--gap)*.7);display:flex;flex-direction:column;gap:.35em;}
+.card-pku .n{font-size:1.5em;font-weight:700;color:var(--pku-red);font-family:Arial,sans-serif;line-height:1;}
+.card-pku .t{font-size:var(--body);line-height:1.55;color:#333;}
+.flow.comparison .cmp{display:flex;gap:var(--gap);height:100%;}
+.flow.comparison .cmp>div{flex:1;}
+.flow.timeline .steps{display:flex;flex-direction:column;gap:.55em;}
+.flow.timeline .step{display:flex;gap:.7em;align-items:flex-start;font-size:var(--body);line-height:1.6;}
+.flow.timeline .step .idx{flex:0 0 auto;width:1.7em;height:1.7em;border-radius:50%;background:var(--pku-red);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85em;}
+.tablewrap{width:100%;overflow:hidden;}
+table.ppt{border-collapse:collapse;width:100%;font-size:var(--body);}
+table.ppt th{background:var(--pku-red);color:#fff;font-weight:700;}
+table.ppt th,table.ppt td{border:1px solid #d3d3d3;padding:.4em .7em;text-align:left;line-height:1.5;}
+table.ppt tr:nth-child(even) td{background:#faf4f4;}
+</style>
+</head>
+<body>
+<div id="stage"><div id="deck" style="--emphasis-color:#9E0000">
+<section class="slide slide--dark" data-screen-label="01" data-type="cover"><div class="band"></div><div class="cover-logo"><img class="emblem lg" src="assets/pku-seal.png" alt="北京大学校徽"></div>
+    <div class="cover-band-inner" style="--cover-title-size:64px">
+      <div class="cover-title">多模态深度学习在医学影像分析中的应用</div>
+      <div class="cover-sub">博士学位论文答辩</div>
+    </div>
+    <div class="cover-foot">
+      <div class="row"><span>答辩人：王五</span><span>指导老师：赵六 教授</span></div>
+      <span>答辩时间：2026年6月</span>
+    </div><div class="pagenum">01</div></section>
+<section class="slide" data-screen-label="02" data-type="contents"><div class="toc">
+    <div class="toc-left"><div class="cn">目录</div><div class="en">CONTENTS</div><div class="deco"></div></div>
+    <div class="toc-right" style="--toc-gap:30px">
+    <div class="toc-item">
+      <div class="num">01</div>
+      <div class="t">绪论背景</div>
+      <div class="line"></div>
+    </div>
+    <div class="toc-item">
+      <div class="num">02</div>
+      <div class="t">研究思路方法</div>
+      <div class="line"></div>
+    </div>
+    <div class="toc-item">
+      <div class="num">03</div>
+      <div class="t">关键技术难点</div>
+      <div class="line"></div>
+    </div>
+    <div class="toc-item">
+      <div class="num">04</div>
+      <div class="t">研究成果</div>
+      <div class="line"></div>
+    </div>
+    <div class="toc-item">
+      <div class="num">05</div>
+      <div class="t">总结与展望</div>
+      <div class="line"></div>
+    </div></div>
+  </div><div class="pagenum">02</div></section>
+<section class="slide slide--dark" data-screen-label="03" data-type="part"><div class="band"></div><div class="cover-logo part-logo"><img class="emblem part" src="assets/pku-seal.png" alt="北京大学校徽"></div>
+    <div class="part-label">Part.01</div>
+    <div class="part-band-inner">
+      <div class="part-cn">绪论背景</div>
+      <div class="part-en">Introduction Background</div>
+    </div><div class="pagenum">03</div></section>
+<section class="slide" data-screen-label="04" data-type="content"><div class="nav"><div class="nav-logo"><img class="emblem sm" src="assets/pku-seal.png" alt="北京大学校徽"></div><div class="nav-items"><div class="nav-item on" style="font-size:27px">绪论背景</div><div class="nav-item " style="font-size:21px">研究思路方法</div><div class="nav-item " style="font-size:21px">关键技术难点</div><div class="nav-item " style="font-size:21px">研究成果</div><div class="nav-item " style="font-size:21px">总结与展望</div></div></div><div class="page-title"><span class="no">1.1</span><span>研究背景</span></div><div class="page-body no-bar"><div class="flow text-only" style="--body:20px;--caption:13px;--gap:22px"><p class="tx">医学影像是临床诊断的重要依据，深度学习的发展为影像自动分析带来了新的机遇。</p><p class="tx">随着多模态数据的普及，<strong class="emphasis">如何有效融合影像、文本与结构化信息成为关键科学问题</strong>。</p></div></div><div class="pagenum">04</div></section>
+<section class="slide" data-screen-label="05" data-type="content"><div class="nav"><div class="nav-logo"><img class="emblem sm" src="assets/pku-seal.png" alt="北京大学校徽"></div><div class="nav-items"><div class="nav-item on" style="font-size:27px">绪论背景</div><div class="nav-item " style="font-size:21px">研究思路方法</div><div class="nav-item " style="font-size:21px">关键技术难点</div><div class="nav-item " style="font-size:21px">研究成果</div><div class="nav-item " style="font-size:21px">总结与展望</div></div></div><div class="page-title"><span class="no">1.2</span><span>研究问题</span></div><div class="page-body no-bar"><div class="flow text-only" style="--body:20px;--caption:13px;--gap:22px"><ul class="bul"><li>单模态模型难以充分利用临床多源信息</li><li>标注数据稀缺，模型泛化能力不足</li><li><strong class="emphasis">多模态对齐与融合缺乏统一框架</strong></li></ul></div></div><div class="pagenum">05</div></section>
+<section class="slide slide--dark" data-screen-label="06" data-type="part"><div class="band"></div><div class="cover-logo part-logo"><img class="emblem part" src="assets/pku-seal.png" alt="北京大学校徽"></div>
+    <div class="part-label">Part.02</div>
+    <div class="part-band-inner">
+      <div class="part-cn">研究思路方法</div>
+      <div class="part-en">Research Ideas And Methods</div>
+    </div><div class="pagenum">06</div></section>
+<section class="slide" data-screen-label="07" data-type="content"><div class="nav"><div class="nav-logo"><img class="emblem sm" src="assets/pku-seal.png" alt="北京大学校徽"></div><div class="nav-items"><div class="nav-item " style="font-size:21px">绪论背景</div><div class="nav-item on" style="font-size:27px">研究思路方法</div><div class="nav-item " style="font-size:21px">关键技术难点</div><div class="nav-item " style="font-size:21px">研究成果</div><div class="nav-item " style="font-size:21px">总结与展望</div></div></div><div class="page-title"><span class="no">2.1</span><span>总体框架</span></div><div class="page-body no-bar"><div class="flow text-image-bottom" style="--body:20px;--caption:13px;--gap:22px"><div class="col-text"><p class="tx">本研究构建统一的多模态表示学习框架，支持影像与文本的协同建模。</p></div><div class="col-img"><figure class="fig"><div class="fig-box"><img src="assets/model_arch.svg" alt="多模态模型架构" style="object-fit:contain"></div><figcaption>图1 多模态表示学习总体框架</figcaption></figure></div></div></div><div class="pagenum">07</div></section>
+<section class="slide" data-screen-label="08" data-type="content"><div class="nav"><div class="nav-logo"><img class="emblem sm" src="assets/pku-seal.png" alt="北京大学校徽"></div><div class="nav-items"><div class="nav-item " style="font-size:21px">绪论背景</div><div class="nav-item on" style="font-size:27px">研究思路方法</div><div class="nav-item " style="font-size:21px">关键技术难点</div><div class="nav-item " style="font-size:21px">研究成果</div><div class="nav-item " style="font-size:21px">总结与展望</div></div></div><div class="page-title"><span class="no">2.2</span><span>数据流程</span></div><div class="page-body no-bar"><div class="flow image-full" style="--body:20px;--caption:13px;--gap:22px"><figure class="fig"><div class="fig-box"><img src="assets/data_flow.svg" alt="数据处理与标注流程" style="object-fit:contain"></div><figcaption>图2 数据采集、脱敏与标注流程</figcaption></figure></div></div><div class="pagenum">08</div></section>
+<section class="slide slide--dark" data-screen-label="09" data-type="part"><div class="band"></div><div class="cover-logo part-logo"><img class="emblem part" src="assets/pku-seal.png" alt="北京大学校徽"></div>
+    <div class="part-label">Part.03</div>
+    <div class="part-band-inner">
+      <div class="part-cn">关键技术难点</div>
+      <div class="part-en">Key Technologies</div>
+    </div><div class="pagenum">09</div></section>
+<section class="slide" data-screen-label="10" data-type="content"><div class="nav"><div class="nav-logo"><img class="emblem sm" src="assets/pku-seal.png" alt="北京大学校徽"></div><div class="nav-items"><div class="nav-item " style="font-size:21px">绪论背景</div><div class="nav-item " style="font-size:21px">研究思路方法</div><div class="nav-item on" style="font-size:27px">关键技术难点</div><div class="nav-item " style="font-size:21px">研究成果</div><div class="nav-item " style="font-size:21px">总结与展望</div></div></div><div class="page-title"><span class="no">3.1</span><span>三项关键技术</span></div><div class="page-body no-bar"><div class="flow three-points" style="--body:20px;--caption:13px;--gap:22px"><div class="three"><div class="card-pku"><div class="n">01</div><div class="t">跨模态对齐</div></div><div class="card-pku"><div class="n">02</div><div class="t">弱监督预训练</div></div><div class="card-pku"><div class="n">03</div><div class="t">不确定性估计</div></div></div></div></div><div class="pagenum">10</div></section>
+<section class="slide slide--dark" data-screen-label="11" data-type="part"><div class="band"></div><div class="cover-logo part-logo"><img class="emblem part" src="assets/pku-seal.png" alt="北京大学校徽"></div>
+    <div class="part-label">Part.04</div>
+    <div class="part-band-inner">
+      <div class="part-cn">研究成果</div>
+      <div class="part-en">Research Findings</div>
+    </div><div class="pagenum">11</div></section>
+<section class="slide" data-screen-label="12" data-type="content"><div class="nav"><div class="nav-logo"><img class="emblem sm" src="assets/pku-seal.png" alt="北京大学校徽"></div><div class="nav-items"><div class="nav-item " style="font-size:21px">绪论背景</div><div class="nav-item " style="font-size:21px">研究思路方法</div><div class="nav-item " style="font-size:21px">关键技术难点</div><div class="nav-item on" style="font-size:27px">研究成果</div><div class="nav-item " style="font-size:21px">总结与展望</div></div></div><div class="page-title"><span class="no">4.1</span><span>主要结果</span></div><div class="page-body no-bar"><div class="flow text-image-bottom" style="--body:20px;--caption:13px;--gap:22px"><div class="col-text"><p class="tx">在多个公开数据集上，本文方法相比基线取得稳定提升。</p></div><div class="col-img"><figure class="fig"><div class="fig-box"><img src="assets/result_chart.svg" alt="性能对比" style="object-fit:contain"></div><figcaption>图3 不同方法的性能对比</figcaption></figure></div></div></div><div class="pagenum">12</div></section>
+<section class="slide" data-screen-label="13" data-type="content"><div class="nav"><div class="nav-logo"><img class="emblem sm" src="assets/pku-seal.png" alt="北京大学校徽"></div><div class="nav-items"><div class="nav-item " style="font-size:21px">绪论背景</div><div class="nav-item " style="font-size:21px">研究思路方法</div><div class="nav-item " style="font-size:21px">关键技术难点</div><div class="nav-item on" style="font-size:27px">研究成果</div><div class="nav-item " style="font-size:21px">总结与展望</div></div></div><div class="page-title"><span class="no">4.2</span><span>定量评估</span></div><div class="page-body no-bar"><div class="flow table" style="--body:20px;--caption:13px;--gap:22px"><div class="tablewrap"><table class="ppt"><thead><tr><th>数据集</th><th>基线 AUC</th><th>本文 AUC</th><th>提升</th></tr></thead><tbody><tr><td>数据集 A</td><td>0.882</td><td>0.931</td><td>+4.9</td></tr><tr><td>数据集 B</td><td>0.857</td><td>0.910</td><td>+5.3</td></tr><tr><td>数据集 C</td><td>0.873</td><td>0.925</td><td>+5.2</td></tr></tbody></table></div></div></div><div class="pagenum">13</div></section>
+<section class="slide slide--dark" data-screen-label="14" data-type="part"><div class="band"></div><div class="cover-logo part-logo"><img class="emblem part" src="assets/pku-seal.png" alt="北京大学校徽"></div>
+    <div class="part-label">Part.05</div>
+    <div class="part-band-inner">
+      <div class="part-cn">总结与展望</div>
+      <div class="part-en">Summary And Outlook</div>
+    </div><div class="pagenum">14</div></section>
+<section class="slide" data-screen-label="15" data-type="content"><div class="nav"><div class="nav-logo"><img class="emblem sm" src="assets/pku-seal.png" alt="北京大学校徽"></div><div class="nav-items"><div class="nav-item " style="font-size:21px">绪论背景</div><div class="nav-item " style="font-size:21px">研究思路方法</div><div class="nav-item " style="font-size:21px">关键技术难点</div><div class="nav-item " style="font-size:21px">研究成果</div><div class="nav-item on" style="font-size:27px">总结与展望</div></div></div><div class="page-title"><span class="no">5.1</span><span>总结与展望</span></div><div class="page-body no-bar"><div class="flow text-only" style="--body:20px;--caption:13px;--gap:22px"><p class="tx">本文提出的多模态框架在医学影像分析中表现出色，<strong class="emphasis">未来将拓展到更多临床场景与实时推理部署</strong>。</p></div></div><div class="pagenum">15</div></section>
+<section class="slide slide--dark" data-screen-label="16" data-type="ending"><div class="band"></div><div class="cover-logo"><img class="emblem lg" src="assets/pku-seal.png" alt="北京大学校徽"></div>
+    <div class="cover-band-inner">
+      <div class="end-title">感谢倾听！欢迎批评指正！</div>
+      <div class="end-sub">Thanks for your listening!</div>
+    </div>
+    <div class="cover-foot">
+      <div class="row"><span>答辩人：王五</span><span>指导老师：赵六 教授</span></div>
+      <span>答辩时间：2026年6月</span>
+    </div><div class="pagenum">16</div></section>
+</div></div>
+<div id="nav">
+  <button id="prev" title="上一页 (←)">‹</button>
+  <span class="count"><span id="cur">1</span> / <span id="total">1</span></span>
+  <button id="next" title="下一页 (→)">›</button>
+  <button id="print" title="打印 / 导出 PDF">⎙</button>
+</div>
+<script>(function(){
+  var W=1280,H=720,KEY="pku_top_slide";
+  var deck=document.getElementById('deck');
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var TOTAL=slides.length;
+  var totalEl=document.getElementById('total'); if(totalEl) totalEl.textContent=TOTAL;
+  var cur=Math.min(TOTAL-1,Math.max(0,parseInt((function(){try{return localStorage.getItem(KEY)}catch(e){return 0}})()||'0',10)||0));
+  function show(i){cur=(i+TOTAL)%TOTAL;slides.forEach(function(el,k){el.classList.toggle('active',k===cur)});var c=document.getElementById('cur');if(c)c.textContent=cur+1;try{localStorage.setItem(KEY,cur)}catch(e){}}
+  function fit(){var w=window.innerWidth,h=window.innerHeight;if(!w||!h)return;var s=Math.min(w/W,h/H);if(s>0)deck.style.transform='scale('+s+')';}
+  window.addEventListener('resize',fit);window.addEventListener('load',fit);
+  if(window.ResizeObserver){new ResizeObserver(fit).observe(document.documentElement);}
+  var p=document.getElementById('prev'),n=document.getElementById('next'),pr=document.getElementById('print');
+  if(p)p.onclick=function(){show(cur-1)};if(n)n.onclick=function(){show(cur+1)};if(pr)pr.onclick=function(){window.print()};
+  window.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){show(cur+1);e.preventDefault();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){show(cur-1);e.preventDefault();}
+    else if(e.key==='Home')show(0);else if(e.key==='End')show(TOTAL-1);
+  });
+  requestAnimationFrame(fit);fit();show(cur);
+})();</script>
+</body>
+</html>
