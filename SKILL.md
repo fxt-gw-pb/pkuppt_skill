@@ -1,43 +1,18 @@
 ---
-name: ppt_pku
-zh_name: "PKU 红色学术汇报 PPT"
-en_name: "PKU Red Academic HTML PPT"
-description: Generate and revise reusable PKU-red academic HTML presentation decks from outlines, manuscripts, images, tables, and revision requests using the user's PKU left-sidebar or top-nav templates.
-triggers:
-  - "PKU PPT"
-  - "北大红 PPT"
-  - "学术汇报 PPT"
-  - "HTML PPT"
-  - "PPT skill"
-  - "ppt_pku"
-od:
-  mode: deck
-  preview:
-    type: html
-    entry: index.html
-  design_system:
-    requires: true
-    file: design/PKU_DESIGN.md
-  craft:
-    requires:
-      - typography
-      - layout
-      - image-rules
-      - anti-ai-slop
-      - revision-rules
-  outputs:
-    primary: index.html
-    secondary:
-      - deckConfig.json
-      - slides.json
-      - output.pdf
-      - layout_report.json
-      - revision_history.json
-  capabilities_required:
-    - file_write
-    - layout_validation
-    - surgical_edit
+name: ppt-pku
+description: >-
+  Generate, validate, auto-repair, revise and export PKU-red (北京大学红) academic
+  HTML presentation decks from a Markdown outline, images, tables and revision
+  requests, using the two bundled PKU templates (left-sidebar 1920×1080 / top-nav
+  1280×720). Produces a self-contained index.html plus deckConfig.json, PDF, and
+  layout/critique reports; never overflows/overlaps; follows the outline exactly;
+  supports surgical local revisions. Use when the user asks for a 北大红 / PKU /
+  学术汇报 / 论文答辩 / HTML PPT, mentions "ppt_pku" or "ppt-pku", or wants to
+  revise (放大图/拆页/改章节名/换图/删页/只修排版) a PKU deck this skill made.
+  Run scripts with Node (zero npm deps); PDF export uses headless Chrome.
 ---
+
+> Skill name is `ppt-pku` (Claude Code skill names must be hyphenated); the project / repo is `ppt_pku`. Invoke with `/ppt-pku` or just describe the task. Run all scripts from this skill's directory.
 
 # ppt_pku — PKU 红色学术汇报 HTML PPT
 

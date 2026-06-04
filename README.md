@@ -4,6 +4,26 @@
 
 > 零依赖：所有脚本均为纯 Node.js（Node ≥ 18，建议 ≥ 20），**无需 `npm install`**。PDF 导出会自动调用本机已安装的 Chrome / Edge。
 
+## 安装
+
+### 导入 Codex（其他用户）
+Codex 没有原生 SKILL.md 机制，用其自定义提示词（slash command）接入——两条命令即可：
+```bash
+# 1) 克隆为 Codex 技能
+git clone https://github.com/fxt-gw-pb/pkuppt_skill.git ~/.codex/skills/ppt_pku
+# 2) 注册 /ppt_pku 斜杠命令
+mkdir -p ~/.codex/prompts && cp ~/.codex/skills/ppt_pku/install/codex/ppt_pku.md ~/.codex/prompts/ppt_pku.md
+```
+随后在 Codex 里输入 **`/ppt_pku 你的需求`** 即可（也可直接说"做个北大红/PKU 学术汇报 PPT"）。
+（可选）让 Codex 在不打斜杠时也识别本技能：`cat ~/.codex/skills/ppt_pku/install/codex/AGENTS.snippet.md >> ~/.codex/AGENTS.md`
+
+### 导入 Claude Code（其他用户）
+Claude Code 的 skill 名用连字符，本仓库 `SKILL.md` 已设为 `ppt-pku`，克隆即用：
+```bash
+git clone https://github.com/fxt-gw-pb/pkuppt_skill.git ~/.claude/skills/ppt-pku
+# 重启 Claude Code 后用 /ppt-pku 调用（或直接描述"做个北大红 PPT"自动触发）
+```
+
 ## 1. 这是什么
 一个专用 Claude/Agent skill：基于两套既有 PKU 红色 HTML PPT 模板，自动 **生成 / 校验 / 返修 / 导出** 学术汇报 PPT。它不是设计平台，只服务这一件事。
 
